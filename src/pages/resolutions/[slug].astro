@@ -1,0 +1,8 @@
+---
+import RecordDetail from "../../components/RecordDetail.astro";
+import { getPublishedRecord, getRecordCitations } from "../../lib/database";
+const record = await getPublishedRecord("resolution", Astro.params.slug ?? "");
+if (!record) return Astro.redirect("/404", 302);
+const citations = await getRecordCitations(record.id);
+---
+<RecordDetail record={record} citations={citations} />

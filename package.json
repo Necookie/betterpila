@@ -1,0 +1,60 @@
+{
+  "name": "better-pila",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "build:preview": "cross-env CLOUDFLARE_ENV=preview astro build",
+    "build:production": "cross-env CLOUDFLARE_ENV=production astro build",
+    "preview": "wrangler dev",
+    "check": "astro check",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "cf:types": "wrangler types --config wrangler.jsonc",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate:local": "wrangler d1 migrations apply better-pila-db --config wrangler.jsonc --local",
+    "db:seed:local": "wrangler d1 execute better-pila-db --config wrangler.jsonc --local --file ./db/seed.sql",
+    "db:migrate:preview": "wrangler d1 migrations apply better-pila-preview-db --config wrangler.jsonc --remote --env preview",
+    "db:migrate:production": "wrangler d1 migrations apply better-pila-production-db --config wrangler.jsonc --remote --env production",
+    "deploy:preview:dry-run": "npm run check && npm run build:preview && wrangler deploy --dry-run",
+    "deploy:production:dry-run": "npm run check && npm run build:production && wrangler deploy --dry-run",
+    "deploy:preview": "npm run check && npm run build:preview && wrangler deploy",
+    "deploy:production": "npm run check && npm run build:production && wrangler deploy"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "14.3.1",
+    "@astrojs/react": "6.0.5",
+    "@tailwindcss/vite": "4.3.3",
+    "astro": "7.3.2",
+    "drizzle-orm": "0.45.2",
+    "jose": "6.2.12",
+    "lucide-react": "1.45.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "tailwindcss": "4.3.3",
+    "zod": "4.6.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@playwright/test": "1.63.0",
+    "@types/node": "24.13.4",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "cross-env": "10.1.0",
+    "drizzle-kit": "0.31.10",
+    "typescript": "6.0.3",
+    "vitest": "5.0.0",
+    "wrangler": "4.131.1"
+  },
+  "overrides": {
+    "@esbuild-kit/core-utils": {
+      "esbuild": "0.25.12"
+    }
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
+}

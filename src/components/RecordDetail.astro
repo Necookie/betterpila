@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { formatDate, payloadValue } from "../lib/format";
+import { collectionMeta, type PublicRecord, type SourceCitation } from "../lib/types";
+
+interface Props { record: PublicRecord; citations: SourceCitation[] }
+const { record, citations } = Astro.props;
+const meta = collectionMeta[record.type];
+const factLabels: Record<string, string> = {
+  position: "Position", classification: "Classification", address: "Address", hours: "Office hours",
+  phone: "Telephone", email: "Email", fiscalYear: "Fiscal year", approvedAmount: "Approved amount",
+  expenditureAmount: "Reported expenditure", location: "Location", projectStatus: "Project status",
+  responsibleOffice: "Responsible office", budget: "Reported budget", officialNumber: "Official number",
+  approvalDate: "Approval date", effectiveDate: "Effectivity date",
+};
+const facts = Object.entries(factLabels)
+  .map(([key, label]) => [label, payloadValue(record.payload, key)] as const)
+  .filter(([, value]) => value);
+const canonicalPath = `${meta.href}/${record.slug}`;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": record.type === "official" ? "Person" : "CreativeWork",
+  name: record.title,
+  description: record.summary,
+  url: new URL(canonicalPath, Astro.site).toString(),
+  dateModified: record.lastVerifiedAt ?? record.publishedAt ?? undefined,
+};
+---
+
+<BaseLayout
+  title={record.metaTitle ?? `${record.title} — Better Pila`}
+  description={record.metaDescription ?? record.summary}
+  canonicalPath={canonicalPath}
+  structuredData={structuredData}
+>
+  <header class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="/">Home</a><span>/</span><a href={meta.href}>{meta.plural}</a><span>/</span><span>{record.title}</span></div>
+      <p class="eyebrow">{meta.singular}</p>
+      <h1>{record.title}</h1>
+      <p class="lede">{record.summary}</p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="container detail-grid">
+      <article class="paper content">
+        {facts.length > 0 && <dl class="facts">{facts.map(([label, value]) => <div class="fact"><dt>{label}</dt><dd>{value}</dd></div>)}</dl>}
+        {record.body ? record.body.split("\n\n").map((paragraph) => <p>{paragraph}</p>) : <p>No additional verified explanation has been published for this record.</p>}
+        <div class="notice"><strong>Independent summary.</strong> Better Pila is not an official municipal website. Refer to the cited original material for the authoritative record.</div>
+      </article>
+      <aside aria-label="Record information">
+        <section class="side-card">
+          <h2>Verification</h2>
+          <p><strong>Last verified:</strong><br />{formatDate(record.lastVerifiedAt)}</p>
+          <p><strong>Published:</strong><br />{formatDate(record.publishedAt)}</p>
+          <a href={`/corrections?record=${encodeURIComponent(canonicalPath)}`}>Suggest a correction</a>
+        </section>
+        <section class="side-card">
+          <h2>Sources</h2>
+          {citations.length ? <ol class="source-list">{citations.map((source) => <li>{source.url ? <a href={source.url} rel="external">{source.publicLabel ?? source.title}</a> : source.publicLabel ?? source.title}<br /><small>{source.publisher} · accessed {formatDate(source.accessedAt)}</small></li>)}</ol> : <p>No public citations are available. This record should not have been published; please report it.</p>}
+        </section>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+

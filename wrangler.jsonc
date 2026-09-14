@@ -1,0 +1,88 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "better-pila",
+  "compatibility_date": "2026-09-13",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./dist"
+  },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "vars": {
+    "ENVIRONMENT": "development",
+    "SITE_URL": "http://localhost:4321",
+    "ADMIN_EMAILS": "admin@example.test",
+    "DEV_ADMIN_EMAIL": "admin@example.test",
+    "CF_ACCESS_TEAM_DOMAIN": "",
+    "CF_ACCESS_AUD": ""
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "better-pila-db",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "./drizzle"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "FILES",
+      "bucket_name": "better-pila-files"
+    }
+  ],
+  "env": {
+    "preview": {
+      "name": "better-pila-preview",
+      "vars": {
+        "ENVIRONMENT": "preview",
+        "SITE_URL": "https://preview.betterpila.org",
+        "ADMIN_EMAILS": "REPLACE_WITH_PREVIEW_ADMIN_EMAILS",
+        "DEV_ADMIN_EMAIL": "",
+        "CF_ACCESS_TEAM_DOMAIN": "REPLACE_WITH_ACCESS_TEAM_DOMAIN",
+        "CF_ACCESS_AUD": "REPLACE_WITH_PREVIEW_ACCESS_AUD"
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "better-pila-preview-db",
+          "database_id": "REPLACE_WITH_PREVIEW_D1_ID",
+          "migrations_dir": "./drizzle"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "FILES",
+          "bucket_name": "better-pila-preview-files"
+        }
+      ]
+    },
+    "production": {
+      "name": "better-pila-production",
+      "vars": {
+        "ENVIRONMENT": "production",
+        "SITE_URL": "https://betterpila.org",
+        "ADMIN_EMAILS": "REPLACE_WITH_PRODUCTION_ADMIN_EMAILS",
+        "DEV_ADMIN_EMAIL": "",
+        "CF_ACCESS_TEAM_DOMAIN": "REPLACE_WITH_ACCESS_TEAM_DOMAIN",
+        "CF_ACCESS_AUD": "REPLACE_WITH_PRODUCTION_ACCESS_AUD"
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "better-pila-production-db",
+          "database_id": "REPLACE_WITH_PRODUCTION_D1_ID",
+          "migrations_dir": "./drizzle"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "FILES",
+          "bucket_name": "better-pila-production-files"
+        }
+      ]
+    }
+  }
+}

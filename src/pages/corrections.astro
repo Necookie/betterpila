@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const record = Astro.url.searchParams.get("record") ?? "";
+---
+<BaseLayout title="Suggest a correction — Better Pila" description="How to report inaccurate or outdated information to Better Pila." noIndex>
+  <header class="page-hero"><div class="narrow"><div class="breadcrumb"><a href="/">Home</a><span>/</span><span>Corrections</span></div><p class="eyebrow">Accuracy matters</p><h1>Help us correct the record.</h1></div></header>
+  <article class="section narrow content paper">
+    <div class="notice"><strong>The protected correction form is not open yet.</strong> A shared project email will be published before launch. Better Pila does not receive emergency or official government service requests.</div>
+    {record && <p><strong>Page selected:</strong> <code>{record}</code></p>}
+    <h2>What to include</h2><p>Send the affected page, the exact information you believe is incorrect, and a direct official source or document supporting the change. Contact information will remain private unless you explicitly ask to be credited.</p>
+    <h2>What happens next</h2><p>A maintainer acknowledges the request, reviews the evidence, and records the outcome. Clear errors are corrected promptly; material public changes receive a correction note.</p>
+  </article>
+</BaseLayout>
+

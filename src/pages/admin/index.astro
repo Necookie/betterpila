@@ -1,0 +1,22 @@
+---
+import "../../styles/global.css";
+import AdminDashboard from "../../components/admin/AdminDashboard";
+import { requireAdmin } from "../../lib/auth";
+import { listAdminRecords } from "../../lib/database";
+
+const identity = await requireAdmin(Astro.request);
+const records = await listAdminRecords();
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#0b2847" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Public record desk — Better Pila</title>
+  </head>
+  <body><AdminDashboard client:load initialRecords={records} identity={identity} /></body>
+</html>
+

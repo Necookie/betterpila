@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { listPublishedRecords } from "../lib/database";
+import { collectionMeta, type RecordType } from "../lib/types";
+import RecordCard from "./RecordCard.astro";
+
+interface Props { type: RecordType }
+const { type } = Astro.props;
+const meta = collectionMeta[type];
+const q = Astro.url.searchParams.get("q")?.trim() ?? "";
+const records = await listPublishedRecords(type, q);
+---
+
+<BaseLayout title={`${meta.plural} — Better Pila`} description={meta.description}>
+  <header class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span>{meta.plural}</span></div>
+      <p class="eyebrow">Public directory</p>
+      <h1>{meta.plural}</h1>
+      <p class="lede">{meta.description} Every published entry includes its supporting sources and verification date.</p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="container">
+      <form class="toolbar" method="get" role="search">
+        <div class="field field-grow">
+          <label for="collection-search">Search {meta.plural.toLowerCase()}</label>
+          <input id="collection-search" type="search" name="q" value={q} placeholder={`Search ${meta.plural.toLowerCase()}…`} />
+        </div>
+        <button class="button button-secondary" type="submit">Search</button>
+      </form>
+      {records.length > 0 ? (
+        <div class="records">{records.map((record) => <RecordCard record={record} />)}</div>
+      ) : (
+        <div class="empty-state">
+          <h2>{q ? "No matching verified records" : "Verification is underway"}</h2>
+          <p>{q ? "Try a shorter search or clear the filter." : `Better Pila has not published verified ${meta.plural.toLowerCase()} yet. Records will appear here only after their sources have been reviewed.`}</p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+

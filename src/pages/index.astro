@@ -1,0 +1,87 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import RecordCard from "../components/RecordCard.astro";
+import { listPublishedRecords } from "../lib/database";
+import { collectionMeta, recordTypes } from "../lib/types";
+
+const latest = (await listPublishedRecords()).slice(0, 4);
+const categories = recordTypes.map((type) => ({ type, ...collectionMeta[type] }));
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Better Pila",
+    url: "https://betterpila.org/",
+    description: "Independent access to sourced public information about Pila, Laguna.",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Better Pila",
+    url: "https://betterpila.org/",
+    description: "An independent civic transparency project for Pila, Laguna.",
+  },
+];
+---
+
+<BaseLayout structuredData={structuredData}>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">Pila, Laguna · Public information</p>
+        <h1>Know what shapes your town.</h1>
+        <p class="lede">Find officials, public offices, budgets, projects, and local legislation—with the original sources and verification dates kept close.</p>
+        <form class="search-bar" action="/search" method="get" role="search">
+          <label class="sr-only" for="home-search">Search Better Pila</label>
+          <input id="home-search" name="q" type="search" placeholder="Search a person, office, project, or ordinance" />
+          <button class="button button-primary" type="submit">Search records</button>
+        </form>
+      </div>
+      <div class="hero-note">
+        <strong>Independent and source-first.</strong><br />
+        Better Pila is maintained by volunteers and is not an official website of the Municipality of Pila. Information is published only after its sources are reviewed.
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="browse-title">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Public record</p>
+          <h2 id="browse-title">Browse by topic</h2>
+          <p>Each section uses the same sourcing and review standard.</p>
+        </div>
+      </div>
+      <div class="category-grid">
+        {categories.map((category, index) => (
+          <a class="category-card" href={category.href}>
+            <span class="category-kicker">{String(index + 1).padStart(2, "0")}</span>
+            <h3>{category.plural}</h3>
+            <p>{category.description}</p>
+            <span class="card-arrow">Open directory →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="latest-title">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Change log</p>
+          <h2 id="latest-title">Recently published</h2>
+          <p>New and materially updated verified records appear here.</p>
+        </div>
+      </div>
+      {latest.length ? <div class="records">{latest.map((record) => <RecordCard record={record} />)}</div> : (
+        <div class="empty-state">
+          <h2>Research is in progress</h2>
+          <p>No verified records have been published yet. The structure is ready; maintainers can now collect sources and review the first entries.</p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+

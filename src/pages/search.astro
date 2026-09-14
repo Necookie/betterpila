@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import RecordCard from "../components/RecordCard.astro";
+import { listPublishedRecords } from "../lib/database";
+import { collectionMeta, recordTypes, type RecordType } from "../lib/types";
+
+const q = Astro.url.searchParams.get("q")?.trim() ?? "";
+const requestedType = Astro.url.searchParams.get("type") ?? "";
+const type = recordTypes.includes(requestedType as RecordType) ? (requestedType as RecordType) : undefined;
+const records = q || type ? await listPublishedRecords(type, q) : [];
+---
+
+<BaseLayout title="Search public records — Better Pila" description="Search verified Better Pila public records." noIndex>
+  <header class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="/">Home</a><span>/</span><span>Search</span></div>
+      <p class="eyebrow">Public record</p>
+      <h1>Search Better Pila</h1>
+      <p class="lede">Search across published officials, offices, budgets, projects, ordinances, and resolutions.</p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="container">
+      <form class="toolbar" method="get" role="search">
+        <div class="field field-grow"><label for="q">Search terms</label><input id="q" name="q" type="search" value={q} /></div>
+        <div class="field"><label for="type">Category</label><select id="type" name="type"><option value="">All categories</option>{recordTypes.map((item) => <option value={item} selected={item === type}>{collectionMeta[item].plural}</option>)}</select></div>
+        <button class="button button-primary" type="submit">Search</button>
+      </form>
+      {q || type ? (records.length ? <div class="records">{records.map((record) => <RecordCard record={record} />)}</div> : <div class="empty-state"><h2>No matching verified records</h2><p>Try fewer words or choose a different category.</p></div>) : <div class="empty-state"><h2>Start with a name or topic</h2><p>Only reviewed and published records are included in search.</p></div>}
+    </div>
+  </section>
+</BaseLayout>
+

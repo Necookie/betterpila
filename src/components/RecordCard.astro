@@ -1,0 +1,17 @@
+---
+import { formatDate, publicPath } from "../lib/format";
+import { collectionMeta, type PublicRecord } from "../lib/types";
+
+interface Props { record: PublicRecord }
+const { record } = Astro.props;
+---
+
+<article class="record-card">
+  <div>
+    <span class="category-kicker">{collectionMeta[record.type].singular}</span>
+    <h2><a href={publicPath(record.type, record.slug)}>{record.title}</a></h2>
+    <p>{record.summary}</p>
+  </div>
+  <div class="record-meta">Verified {formatDate(record.lastVerifiedAt)}</div>
+</article>
+
