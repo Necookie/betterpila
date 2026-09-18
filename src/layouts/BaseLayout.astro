@@ -32,9 +32,9 @@ const nav = [
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0b2847" />
+    <meta name="theme-color" content="#0a2239" />
     <meta name="robots" content={noIndex ? "noindex, nofollow" : "index, follow"} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -52,28 +52,61 @@ const nav = [
     <header class="site-header">
       <div class="topline">
         <div class="container">
-          <span>Independent civic transparency portal</span>
-          <span>Not an official Municipality of Pila website</span>
+          <div class="topline-badge">
+            <span class="pulse-dot" aria-hidden="true"></span>
+            <span>Independent Civic Transparency Portal</span>
+          </div>
+          <span>Bayan ng Pila, Laguna · Not an official municipal government website</span>
         </div>
       </div>
       <div class="container header-main">
         <a class="brand" href="/" aria-label="Better Pila home">
-          <span class="brand-mark" aria-hidden="true">BP</span>
-          <span>Better Pila</span>
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+              <path d="M6 6h10"/>
+              <path d="M6 10h10"/>
+              <path d="M6 14h6"/>
+            </svg>
+          </span>
+          <div class="brand-text">
+            <span class="brand-title">Better Pila</span>
+            <span class="brand-subtitle">Civic Public Record</span>
+          </div>
         </a>
         <nav class="nav desktop-nav" aria-label="Primary navigation">
           {nav.map(([label, href, section]) => (
             <a href={href} aria-current={currentSection === section ? "page" : undefined}>{label}</a>
           ))}
-          <a href="/search">Search</a>
+          <a href="/search" class="nav-search-btn" aria-label="Search records">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <span>Search</span>
+          </a>
         </nav>
         <details class="mobile-nav">
-          <summary>Menu</summary>
+          <summary aria-label="Open main menu">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+            <span>Menu</span>
+          </summary>
           <nav class="mobile-links" aria-label="Mobile navigation">
-            {nav.map(([label, href]) => <a href={href}>{label}</a>)}
-            <a href="/resolutions">Resolutions</a>
-            <a href="/search">Search</a>
-            <a href="/about">About</a>
+            {nav.map(([label, href]) => (
+              <a href={href}>
+                <span>{label}</span>
+                <span aria-hidden="true" style="color: #94a3b8;">→</span>
+              </a>
+            ))}
+            <a href="/resolutions">
+              <span>Resolutions</span>
+              <span aria-hidden="true" style="color: #94a3b8;">→</span>
+            </a>
+            <a href="/search">
+              <span>Search Records</span>
+              <span aria-hidden="true" style="color: #94a3b8;">🔍</span>
+            </a>
+            <a href="/about">
+              <span>About Better Pila</span>
+              <span aria-hidden="true" style="color: #94a3b8;">ℹ️</span>
+            </a>
           </nav>
         </details>
       </div>
@@ -83,26 +116,39 @@ const nav = [
       <div class="container footer-grid">
         <section>
           <h2>Better Pila</h2>
-          <p>Independent, source-first access to public information about Pila, Laguna. This project is not owned, endorsed, or operated by the municipal government.</p>
+          <p>An independent, source-first civic transparency portal for Pila, Laguna. Providing clear access to verified public documents, leadership directories, municipal budgets, and local ordinances.</p>
+          <div style="margin-top: 1.2rem; display: inline-flex; align-items: center; gap: 0.55rem; background: rgb(255 255 255 / 0.06); padding: 0.45rem 0.85rem; border-radius: 9999px; font-size: 0.78rem; border: 1px solid rgb(255 255 255 / 0.1);">
+            <span class="pulse-dot" aria-hidden="true"></span>
+            <span>Independent Non-Governmental Registry</span>
+          </div>
         </section>
         <section>
-          <h2>Project</h2>
-          <nav aria-label="Project information">
-            <a href="/about">About</a>
-            <a href="/methodology">Methodology</a>
-            <a href="/corrections">Corrections</a>
+          <h2>Civic Directories</h2>
+          <nav aria-label="Directories">
+            <a href="/officials">Municipal Officials</a>
+            <a href="/offices">Offices & Contacts</a>
+            <a href="/budgets">Municipal Budgets</a>
+            <a href="/projects">Public Projects</a>
+            <a href="/ordinances">Ordinances & Codes</a>
+            <a href="/resolutions">Council Resolutions</a>
           </nav>
         </section>
         <section>
-          <h2>Policies</h2>
-          <nav aria-label="Policies">
-            <a href="/accessibility">Accessibility</a>
-            <a href="/privacy">Privacy</a>
-            <a href="/sitemap.xml">Sitemap</a>
+          <h2>Governance & Trust</h2>
+          <nav aria-label="Governance">
+            <a href="/about">About Better Pila</a>
+            <a href="/methodology">Research Methodology</a>
+            <a href="/corrections">Report a Correction</a>
+            <a href="/accessibility">Accessibility Commitment</a>
+            <a href="/privacy">Privacy Notice</a>
+            <a href="/sitemap.xml">XML Sitemap</a>
           </nav>
         </section>
       </div>
-      <div class="container footer-bottom">Public information deserves a clear source and a visible verification date.</div>
+      <div class="container footer-bottom">
+        <div>Public records deserve an authentic source and a visible verification timestamp.</div>
+        <div>Pila, Laguna, Philippines · Bayan ng Pila Civic Archive</div>
+      </div>
     </footer>
   </body>
 </html>
