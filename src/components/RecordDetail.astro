@@ -3,19 +3,88 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { formatDate, payloadValue } from "../lib/format";
 import { collectionMeta, type PublicRecord, type SourceCitation } from "../lib/types";
 
-interface Props { record: PublicRecord; citations: SourceCitation[] }
+interface Props {
+  record: PublicRecord;
+  citations: SourceCitation[];
+}
 const { record, citations } = Astro.props;
 const meta = collectionMeta[record.type];
-const factLabels: Record<string, string> = {
-  position: "Position", classification: "Classification", address: "Address", hours: "Office hours",
-  phone: "Telephone", email: "Email", fiscalYear: "Fiscal year", approvedAmount: "Approved amount",
-  expenditureAmount: "Reported expenditure", location: "Location", projectStatus: "Project status",
-  responsibleOffice: "Responsible office", budget: "Reported budget", officialNumber: "Official number",
-  approvalDate: "Approval date", effectiveDate: "Effectivity date",
+
+const factMeta: Record<string, { label: string; icon: string }> = {
+  position: {
+    label: "Position / Office",
+    icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>`,
+  },
+  classification: {
+    label: "Classification",
+    icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  },
+  address: {
+    label: "Public Address",
+    icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`,
+  },
+  hours: {
+    label: "Office Hours",
+    icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+  },
+  phone: {
+    label: "Telephone",
+    icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
+  },
+  email: {
+    label: "Email",
+    icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`,
+  },
+  fiscalYear: {
+    label: "Fiscal Year",
+    icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>`,
+  },
+  approvedAmount: {
+    label: "Approved Budget",
+    icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>`,
+  },
+  expenditureAmount: {
+    label: "Reported Expenditure",
+    icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>`,
+  },
+  location: {
+    label: "Project Location",
+    icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`,
+  },
+  projectStatus: {
+    label: "Project Status",
+    icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+  },
+  responsibleOffice: {
+    label: "Implementing Office",
+    icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/></svg>`,
+  },
+  budget: {
+    label: "Allocated Budget",
+    icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>`,
+  },
+  officialNumber: {
+    label: "Official Document No.",
+    icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`,
+  },
+  approvalDate: {
+    label: "Date Approved",
+    icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>`,
+  },
+  effectiveDate: {
+    label: "Effectivity Date",
+    icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>`,
+  },
 };
-const facts = Object.entries(factLabels)
-  .map(([key, label]) => [label, payloadValue(record.payload, key)] as const)
-  .filter(([, value]) => value);
+
+const facts = Object.entries(factMeta)
+  .map(([key, config]) => ({
+    label: config.label,
+    icon: config.icon,
+    value: payloadValue(record.payload, key),
+  }))
+  .filter((fact) => Boolean(fact.value));
+
 const canonicalPath = `${meta.href}/${record.slug}`;
 const structuredData = {
   "@context": "https://schema.org",
@@ -33,34 +102,179 @@ const structuredData = {
   canonicalPath={canonicalPath}
   structuredData={structuredData}
 >
+  <!-- Record Hero -->
   <header class="page-hero">
     <div class="container">
-      <div class="breadcrumb"><a href="/">Home</a><span>/</span><a href={meta.href}>{meta.plural}</a><span>/</span><span>{record.title}</span></div>
-      <p class="eyebrow">{meta.singular}</p>
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href={meta.href}>{meta.plural}</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>{record.title}</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.85rem;">
+        <span class="eyebrow" style="margin: 0; color: #fde68a;">
+          {meta.singular}
+        </span>
+        {record.lastVerifiedAt && (
+          <span class="verified-pill" style="font-size: 0.74rem;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>Verified Public Record</span>
+          </span>
+        )}
+      </div>
       <h1>{record.title}</h1>
       <p class="lede">{record.summary}</p>
     </div>
   </header>
+
+  <!-- Detail Content Grid -->
   <section class="section">
     <div class="container detail-grid">
+      <!-- Main Content Column -->
       <article class="paper content">
-        {facts.length > 0 && <dl class="facts">{facts.map(([label, value]) => <div class="fact"><dt>{label}</dt><dd>{value}</dd></div>)}</dl>}
-        {record.body ? record.body.split("\n\n").map((paragraph) => <p>{paragraph}</p>) : <p>No additional verified explanation has been published for this record.</p>}
-        <div class="notice"><strong>Independent summary.</strong> Better Pila is not an official municipal website. Refer to the cited original material for the authoritative record.</div>
+        {facts.length > 0 && (
+          <div style="margin-bottom: 2rem;">
+            <h2 style="font-size: 1.15rem; font-family: var(--font-sans); text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); margin-bottom: 0.9rem;">
+              Key Information
+            </h2>
+            <dl class="facts" style="margin: 0;">
+              {facts.map((fact) => (
+                <div class="fact">
+                  <dt style="display: flex; align-items: center; gap: 0.4rem;">
+                    <span set:html={fact.icon} style="color: var(--navy);" />
+                    <span>{fact.label}</span>
+                  </dt>
+                  <dd>{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        )}
+
+        <div style="margin-top: 1.5rem; margin-bottom: 2rem;">
+          <h2 style="font-size: 1.35rem; margin-bottom: 1rem; color: var(--navy-deep);">
+            Summary & Context
+          </h2>
+          {record.body ? (
+            record.body.split("\n\n").map((paragraph) => <p>{paragraph}</p>)
+          ) : (
+            <p style="color: var(--ink-soft); font-style: italic;">
+              No extended explanatory text has been published for this record. Information is verified through the cited primary sources on the right.
+            </p>
+          )}
+        </div>
+
+        <div class="notice" style="margin-top: 2.5rem;">
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; color: var(--gold-dark); margin-top: 0.15rem;">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <div>
+              <strong>Independent Civic Record:</strong> Better Pila is an independent transparency archive and not an official government agency. For official legal, business, or government proceedings, consult the cited municipal office and original gazettes.
+            </div>
+          </div>
+        </div>
       </article>
-      <aside aria-label="Record information">
-        <section class="side-card">
-          <h2>Verification</h2>
-          <p><strong>Last verified:</strong><br />{formatDate(record.lastVerifiedAt)}</p>
-          <p><strong>Published:</strong><br />{formatDate(record.publishedAt)}</p>
-          <a href={`/corrections?record=${encodeURIComponent(canonicalPath)}`}>Suggest a correction</a>
+
+      <!-- Verification & Evidence Sidebar -->
+      <aside aria-label="Verification and citations">
+        <!-- Verification Certificate -->
+        <section class="side-card" style="border-top: 4px solid var(--navy);">
+          <h2>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--success);">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <path d="m9 12 2 2 4-4"></path>
+            </svg>
+            <span>Verification Record</span>
+          </h2>
+          <div style="display: grid; gap: 0.75rem; margin-bottom: 1.25rem;">
+            <div>
+              <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); font-weight: 750;">Last Verified</span>
+              <p style="margin: 0.15rem 0 0; font-weight: 700; color: var(--navy-deep);">{formatDate(record.lastVerifiedAt)}</p>
+            </div>
+            <div>
+              <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); font-weight: 750;">Published On</span>
+              <p style="margin: 0.15rem 0 0; font-weight: 600; color: var(--ink-soft);">{formatDate(record.publishedAt)}</p>
+            </div>
+            {record.reviewDueAt && (
+              <div>
+                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); font-weight: 750;">Next Scheduled Audit</span>
+                <p style="margin: 0.15rem 0 0; font-weight: 600; color: var(--ink-soft);">{formatDate(record.reviewDueAt)}</p>
+              </div>
+            )}
+          </div>
+          <div style="border-top: 1px solid var(--line); padding-top: 0.9rem;">
+            <a
+              href={`/corrections?record=${encodeURIComponent(canonicalPath)}`}
+              class="button button-secondary"
+              style="width: 100%; min-height: 38px; font-size: 0.84rem; justify-content: center;"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path>
+              </svg>
+              <span>Suggest a correction</span>
+            </a>
+          </div>
         </section>
+
+        <!-- Primary Sources -->
         <section class="side-card">
-          <h2>Sources</h2>
-          {citations.length ? <ol class="source-list">{citations.map((source) => <li>{source.url ? <a href={source.url} rel="external">{source.publicLabel ?? source.title}</a> : source.publicLabel ?? source.title}<br /><small>{source.publisher} · accessed {formatDate(source.accessedAt)}</small></li>)}</ol> : <p>No public citations are available. This record should not have been published; please report it.</p>}
+          <h2>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--navy-2);">
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+              <path d="M6 6h10"></path>
+              <path d="M6 10h10"></path>
+            </svg>
+            <span>Evidence & Sources</span>
+          </h2>
+          {citations.length > 0 ? (
+            <ol class="source-list">
+              {citations.map((source, idx) => (
+                <li>
+                  <div style="font-weight: 700; color: var(--navy-deep); display: flex; align-items: baseline; gap: 0.4rem;">
+                    <span style="color: var(--ink-muted); font-size: 0.8rem; font-weight: 800;">[{idx + 1}]</span>
+                    {source.url ? (
+                      <a href={source.url} rel="external noopener noreferrer" target="_blank" style="display: inline-flex; align-items: center; gap: 0.35rem;">
+                        <span>{source.publicLabel ?? source.title}</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" x2="21" y1="14" y2="3"></line>
+                        </svg>
+                      </a>
+                    ) : (
+                      <span>{source.publicLabel ?? source.title}</span>
+                    )}
+                  </div>
+                  <small>
+                    <strong>{source.publisher}</strong>
+                    {source.publicationDate && ` · Published ${formatDate(source.publicationDate)}`}
+                    <br />
+                    <span>Accessed {formatDate(source.accessedAt)}</span>
+                  </small>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <p style="color: var(--ink-soft); font-size: 0.88rem; margin: 0;">
+              No public citations are currently attached to this entry. If this record is published, please flag it for review.
+            </p>
+          )}
+        </section>
+
+        <!-- Citizen Audit Note -->
+        <section class="side-card" style="background: var(--paper-subtle); border-style: dashed;">
+          <h2 style="font-size: 0.95rem; color: var(--ink);">Citizen Oversight</h2>
+          <p style="font-size: 0.84rem; margin: 0; line-height: 1.55;">
+            Better Pila records remain open for public verification. If you have an official signed document updating this entry, submit it to help keep Pila's records accurate.
+          </p>
         </section>
       </aside>
     </div>
   </section>
 </BaseLayout>
-
