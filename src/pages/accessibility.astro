@@ -1,12 +1,71 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
-<BaseLayout title="Accessibility — Better Pila" description="Better Pila accessibility commitment and feedback process.">
-  <header class="page-hero"><div class="narrow"><div class="breadcrumb"><a href="/">Home</a><span>/</span><span>Accessibility</span></div><p class="eyebrow">Public by design</p><h1>Information must work for everyone.</h1></div></header>
-  <article class="section narrow content paper">
-    <p>Better Pila targets WCAG 2.2 Level AA and is designed for keyboard navigation, screen readers, text enlargement, narrow screens, and reduced motion.</p>
-    <h2>Documents</h2><p>Important documents should have a useful HTML summary. Scanned files are marked when they still need OCR or accessibility remediation.</p>
-    <h2>Report a barrier</h2><p>An accessibility contact will be published before launch. Include the page, the task you were attempting, and the assistive technology or browser involved when you are comfortable sharing it.</p>
-  </article>
-</BaseLayout>
 
+<BaseLayout
+  title="Accessibility Statement — Better Pila"
+  description="Better Pila commitment to accessibility, inclusive design, and WCAG 2.2 Level AA guidelines."
+>
+  <header class="page-hero">
+    <div class="narrow">
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Accessibility</span>
+      </div>
+      <p class="eyebrow">Public By Design</p>
+      <h1>Information must work for every citizen.</h1>
+      <p class="lede">
+        Civic knowledge belongs to the entire community. We are committed to ensuring Better Pila is barrier-free, accessible, and fast on all devices.
+      </p>
+    </div>
+  </header>
+
+  <section class="section narrow">
+    <article class="paper content">
+      <h2 style="color: var(--navy-deep); margin-bottom: 0.85rem;">Accessibility Standard</h2>
+      <p>
+        Better Pila targets compliance with the Web Content Accessibility Guidelines (WCAG) 2.2 Level AA. We strive to provide high visual contrast, full keyboard operability, clear screen-reader landmarks, and responsive sizing across all screen widths.
+      </p>
+
+      <div class="trust-grid" style="margin: 1.8rem 0; grid-template-columns: repeat(2, 1fr);">
+        <div class="trust-card">
+          <div class="trust-icon" style="background: var(--blue-soft); color: var(--navy);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+          </div>
+          <h3>Lightweight & Fast</h3>
+          <p>Static-first architecture ensures instantaneous load times even on modest mobile cellular connections in rural barangays.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon" style="background: var(--blue-soft); color: var(--navy);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+              <path d="m9 8 3 3-3 3"></path>
+              <line x1="15" y1="15" x2="15.01" y2="15"></line>
+            </svg>
+          </div>
+          <h3>Keyboard & Screen Readers</h3>
+          <p>Semantic HTML, visible focus states, skip navigation links, and screen reader-friendly aria labels on interactive elements.</p>
+        </div>
+      </div>
+
+      <h2 style="color: var(--navy-deep); margin-top: 2rem; margin-bottom: 0.85rem;">Document Transparency</h2>
+      <p>
+        Public municipal documents are frequently distributed as low-resolution photocopies or scanned images. Whenever feasible, Better Pila provides structured, searchable plain-text summaries to make government filings accessible to screen readers and search engines.
+      </p>
+
+      <h2 style="color: var(--navy-deep); margin-top: 2rem; margin-bottom: 0.85rem;">Reporting an Accessibility Barrier</h2>
+      <p>
+        If you experience any accessibility difficulty navigating Better Pila, please report the page URL, assistive technology used, and the barrier encountered. We prioritize accessibility fixes as critical technical debt.
+      </p>
+
+      <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line);">
+        <a href="/" class="button button-primary">← Return to homepage</a>
+      </div>
+    </article>
+  </section>
+</BaseLayout>

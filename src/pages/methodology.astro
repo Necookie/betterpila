@@ -1,14 +1,89 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
-<BaseLayout title="Research methodology — Better Pila" description="How Better Pila finds, verifies, summarizes, and maintains public information.">
-  <header class="page-hero"><div class="narrow"><div class="breadcrumb"><a href="/">Home</a><span>/</span><span>Methodology</span></div><p class="eyebrow">Evidence before publication</p><h1>How records earn their place here.</h1></div></header>
-  <article class="section narrow content paper">
-    <h2>Primary sources first</h2><p>Maintainers prefer direct municipal records and national government sources. Secondary reporting may help locate a record but is not normally the only evidence for consequential claims.</p>
-    <h2>Human review</h2><p>Every substantive record requires a source and verification date. Drafts remain private until a reviewer checks names, dates, amounts, context, privacy, and neutral wording.</p>
-    <h2>Clear uncertainty</h2><p>When sources conflict or information is incomplete, Better Pila describes the limitation rather than guessing. Missing information is not treated as zero.</p>
-    <h2>Living records</h2><p>Contacts, current officials, and active projects receive scheduled reviews. Historical and superseded records are archived when they retain public value.</p>
-    <h2>Corrections</h2><p>Evidence-backed correction requests are reviewed and material corrections receive a visible note. Administrative revision history is preserved.</p>
-  </article>
-</BaseLayout>
 
+<BaseLayout
+  title="Research Methodology — Better Pila"
+  description="How Better Pila discovers, verifies, summarizes, and maintains public municipal information in Pila, Laguna."
+>
+  <header class="page-hero">
+    <div class="narrow">
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Methodology</span>
+      </div>
+      <p class="eyebrow">Evidence Before Publication</p>
+      <h1>How records earn their place here.</h1>
+      <p class="lede">
+        We adhere to a strict editorial methodology designed to minimize bias, eliminate unverified claims, and provide transparent civic data.
+      </p>
+    </div>
+  </header>
+
+  <section class="section narrow">
+    <article class="paper content">
+      <div style="display: grid; gap: 1.6rem; margin-bottom: 2rem;">
+        <!-- Step 1 -->
+        <div style="border-left: 4px solid var(--navy); padding-left: 1.25rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+            <span style="font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-dark); background: #fef3c7; padding: 0.2rem 0.5rem; border-radius: 4px;">Pillar 1</span>
+            <h2 style="margin: 0; font-size: 1.25rem; color: var(--navy-deep);">Primary Sources First</h2>
+          </div>
+          <p style="margin: 0; color: var(--ink-soft); font-size: 0.95rem;">
+            We prioritize official government documents: signed municipal ordinances, certified council resolutions, Commission on Audit (COA) reports, full disclosure portal uploads, and registered agency filings. Secondary media reports are used only to locate documents, never as the sole evidence for consequential facts.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div style="border-left: 4px solid var(--navy); padding-left: 1.25rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+            <span style="font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-dark); background: #fef3c7; padding: 0.2rem 0.5rem; border-radius: 4px;">Pillar 2</span>
+            <h2 style="margin: 0; font-size: 1.25rem; color: var(--navy-deep);">Mandatory Human Review</h2>
+          </div>
+          <p style="margin: 0; color: var(--ink-soft); font-size: 0.95rem;">
+            Every substantive entry requires a named reviewer, direct citation, and verification date. Draft records remain sequestered from the public website until names, spellings, financial amounts, official dates, privacy safeguards, and neutral wording are verified.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div style="border-left: 4px solid var(--navy); padding-left: 1.25rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+            <span style="font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-dark); background: #fef3c7; padding: 0.2rem 0.5rem; border-radius: 4px;">Pillar 3</span>
+            <h2 style="margin: 0; font-size: 1.25rem; color: var(--navy-deep);">Explicit Acknowledgment of Uncertainty</h2>
+          </div>
+          <p style="margin: 0; color: var(--ink-soft); font-size: 0.95rem;">
+            When official sources conflict, omit information, or present gaps, Better Pila explicitly notes the limitation rather than making assumptions. A missing value is never quietly assumed to be zero.
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div style="border-left: 4px solid var(--navy); padding-left: 1.25rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+            <span style="font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-dark); background: #fef3c7; padding: 0.2rem 0.5rem; border-radius: 4px;">Pillar 4</span>
+            <h2 style="margin: 0; font-size: 1.25rem; color: var(--navy-deep);">Scheduled Recertification (Living Records)</h2>
+          </div>
+          <p style="margin: 0; color: var(--ink-soft); font-size: 0.95rem;">
+            Municipal phone numbers, office personnel, active capital infrastructure, and current leaders undergo scheduled recertification. Superseded historical ordinances remain indexed with clear tags marking them as superseded or historical.
+          </p>
+        </div>
+
+        <!-- Step 5 -->
+        <div style="border-left: 4px solid var(--navy); padding-left: 1.25rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+            <span style="font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-dark); background: #fef3c7; padding: 0.2rem 0.5rem; border-radius: 4px;">Pillar 5</span>
+            <h2 style="margin: 0; font-size: 1.25rem; color: var(--navy-deep);">Open Corrections & Public Audit Trail</h2>
+          </div>
+          <p style="margin: 0; color: var(--ink-soft); font-size: 0.95rem;">
+            Errors reported by readers with verifiable evidence are acknowledged promptly. Material changes receive an explanatory correction badge, maintaining transparency throughout the revision lifecycle.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <span style="font-size: 0.88rem; color: var(--ink-soft);">Have questions regarding our verification pipeline?</span>
+        <a href="/corrections" class="button button-secondary">Review corrections policy →</a>
+      </div>
+    </article>
+  </section>
+</BaseLayout>

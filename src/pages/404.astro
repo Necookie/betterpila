@@ -2,7 +2,31 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 Astro.response.status = 404;
 ---
-<BaseLayout title="Page not found — Better Pila" description="The requested Better Pila page could not be found." noIndex>
-  <section class="section narrow"><div class="empty-state"><p class="eyebrow">404</p><h1 style="max-width:none;font-size:clamp(2rem,6vw,4rem)">That record is not here.</h1><p>It may have moved, been archived, or not yet been published.</p><p><a class="button button-primary" href="/">Return home</a></p></div></section>
-</BaseLayout>
 
+<BaseLayout
+  title="Page Not Found — Better Pila"
+  description="The requested public record or page could not be found in the Better Pila directory."
+  noIndex
+>
+  <section class="section narrow" style="padding-top: 5rem; padding-bottom: 5rem;">
+    <div class="empty-state" style="padding: 4rem 2rem;">
+      <div class="empty-state-icon" style="width: 4rem; height: 4rem;">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="m4.93 4.93 14.14 14.14"></path>
+        </svg>
+      </div>
+      <p class="eyebrow" style="color: var(--gold-dark); margin-bottom: 0.5rem;">Error 404</p>
+      <h1 style="max-width: none; font-size: clamp(2.2rem, 5vw, 3.2rem); margin: 0 0 0.8rem; color: var(--navy-deep);">
+        That record is not here.
+      </h1>
+      <p style="font-size: 1.05rem; color: var(--ink-soft); max-width: 50ch; margin: 0 auto 2rem; line-height: 1.6;">
+        The requested URL may have moved, been archived, or not yet completed our source verification process.
+      </p>
+      <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 0.8rem;">
+        <a class="button button-primary" href="/">Return to homepage</a>
+        <a class="button button-secondary" href="/search">Search the public registry</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

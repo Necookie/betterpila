@@ -1,17 +1,69 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
-<BaseLayout title="About Better Pila" description="Learn who Better Pila serves and how this independent transparency project works.">
-  <header class="page-hero"><div class="narrow"><div class="breadcrumb"><a href="/">Home</a><span>/</span><span>About</span></div><p class="eyebrow">The project</p><h1>Public information should be easier to use.</h1></div></header>
-  <article class="section narrow content paper">
-    <h2>What Better Pila is</h2>
-    <p>Better Pila is an independent civic project that organizes publicly available information about Pila, Laguna. It aims to make records easier to find, understand, verify, and revisit.</p>
-    <h2>What it is not</h2>
-    <p>Better Pila is not an official website of the Municipality of Pila and does not speak for any municipal office, official, political party, candidate, contractor, or agency.</p>
-    <h2>How to use it</h2>
-    <p>Use Better Pila as a starting point. Each substantive record should link to its original sources and show when maintainers last checked it. For authoritative legal or operational decisions, consult the responsible government office and original document.</p>
-    <h2>Who maintains it</h2>
-    <p>The named maintainer and project contact will be published before launch. The project is being prepared by volunteers with a local connection to Pila.</p>
-  </article>
-</BaseLayout>
 
+<BaseLayout
+  title="About Better Pila — Independent Civic Transparency"
+  description="Learn who Better Pila serves, our principles, and how this independent public records project operates in Pila, Laguna."
+>
+  <header class="page-hero">
+    <div class="narrow">
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>About</span>
+      </div>
+      <p class="eyebrow">The Project</p>
+      <h1>Public records should be clear, sourced, and easy to find.</h1>
+      <p class="lede">
+        Better Pila is an independent civic portal organizing publicly available municipal records in Pila, Laguna to promote civic literacy and government transparency.
+      </p>
+    </div>
+  </header>
+
+  <section class="section narrow">
+    <article class="paper content">
+      <div class="notice" style="margin-bottom: 2rem;">
+        <strong>Non-Government Notice:</strong> Better Pila is an independent civic archive created by volunteers. It is not affiliated with, operated by, or funded by the municipal government of Pila or any political organization.
+      </div>
+
+      <h2 style="color: var(--navy-deep); margin-bottom: 0.85rem;">What Better Pila is</h2>
+      <p>
+        Better Pila is an independent digital civic archive. We collect, organize, and summarize public records regarding the municipality of Pila, Laguna—including elected and appointed officials, administrative offices, annual budgets, infrastructure developments, and municipal legislation.
+      </p>
+      <p>
+        Our goal is to lower the barrier for residents, civil society organizations, researchers, and local businesses to understand how decisions are made, how funds are allocated, and who is accountable.
+      </p>
+
+      <h2 style="color: var(--navy-deep); margin-top: 2rem; margin-bottom: 0.85rem;">What Better Pila is not</h2>
+      <p>
+        Better Pila is not an official municipal government website. We do not issue official permits, process government clearances, accept administrative payments, or speak on behalf of any municipal department or official.
+      </p>
+
+      <div style="background: var(--paper-subtle); border-left: 4px solid var(--navy); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 1.25rem; margin: 1.8rem 0;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1.05rem; color: var(--navy-deep);">Our Guiding Principles</h3>
+        <ul style="margin: 0; padding-left: 1.25rem; color: var(--ink-soft); font-size: 0.94rem; display: grid; gap: 0.4rem;">
+          <li><strong>Source-First:</strong> No factual claim without a cited public document or gazette.</li>
+          <li><strong>Dated Verification:</strong> Every fact carries an explicit verification timestamp.</li>
+          <li><strong>Open Corrections:</strong> Factual errors are investigated and corrected with public logs.</li>
+          <li><strong>Accessibility & Speed:</strong> Lightweight, mobile-friendly design without ads or commercial trackers.</li>
+        </ul>
+      </div>
+
+      <h2 style="color: var(--navy-deep); margin-top: 2rem; margin-bottom: 0.85rem;">How to use this portal</h2>
+      <p>
+        Use Better Pila as a reliable reference point. Each record links to original government source material. For authoritative legal or official administrative proceedings, always verify with the responsible municipal office and inspect certified government copies.
+      </p>
+
+      <h2 style="color: var(--navy-deep); margin-top: 2rem; margin-bottom: 0.85rem;">Who maintains the project</h2>
+      <p>
+        The project is maintained by a non-partisan collective of civic-minded developers, researchers, and community members with family and ancestral roots in Pila, Laguna. Formal editorial contact channels and contributor registries will be published with the public launch.
+      </p>
+
+      <div style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 0.8rem;">
+        <a href="/methodology" class="button button-primary">Read our methodology →</a>
+        <a href="/corrections" class="button button-secondary">Suggest a correction</a>
+      </div>
+    </article>
+  </section>
+</BaseLayout>

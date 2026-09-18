@@ -2,13 +2,66 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 const record = Astro.url.searchParams.get("record") ?? "";
 ---
-<BaseLayout title="Suggest a correction — Better Pila" description="How to report inaccurate or outdated information to Better Pila." noIndex>
-  <header class="page-hero"><div class="narrow"><div class="breadcrumb"><a href="/">Home</a><span>/</span><span>Corrections</span></div><p class="eyebrow">Accuracy matters</p><h1>Help us correct the record.</h1></div></header>
-  <article class="section narrow content paper">
-    <div class="notice"><strong>The protected correction form is not open yet.</strong> A shared project email will be published before launch. Better Pila does not receive emergency or official government service requests.</div>
-    {record && <p><strong>Page selected:</strong> <code>{record}</code></p>}
-    <h2>What to include</h2><p>Send the affected page, the exact information you believe is incorrect, and a direct official source or document supporting the change. Contact information will remain private unless you explicitly ask to be credited.</p>
-    <h2>What happens next</h2><p>A maintainer acknowledges the request, reviews the evidence, and records the outcome. Clear errors are corrected promptly; material public changes receive a correction note.</p>
-  </article>
-</BaseLayout>
 
+<BaseLayout
+  title="Suggest a Correction — Better Pila"
+  description="How to report inaccurate, outdated, or incomplete public records to the Better Pila editorial desk."
+  noIndex
+>
+  <header class="page-hero">
+    <div class="narrow">
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Corrections</span>
+      </div>
+      <p class="eyebrow">Accuracy & Integrity</p>
+      <h1>Help us keep the record true.</h1>
+      <p class="lede">
+        We strive for total factual accuracy. If any information on Better Pila is incorrect, incomplete, or out of date, report it with verifiable evidence.
+      </p>
+    </div>
+  </header>
+
+  <section class="section narrow">
+    <article class="paper content">
+      <div class="notice" style="margin-bottom: 2rem;">
+        <strong>Notice:</strong> Better Pila does not handle emergency dispatches, official government complaints, or administrative municipal service requests. For emergencies, please call local municipal hotlines directly.
+      </div>
+
+      {record && (
+        <div style="background: var(--blue-soft); border: 1px solid var(--blue-border); border-radius: var(--radius-sm); padding: 0.9rem 1.1rem; margin-bottom: 1.8rem;">
+          <span style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 800; color: var(--navy-2);">Target Page Selected</span>
+          <p style="margin: 0.25rem 0 0; font-family: monospace; font-size: 0.9rem; color: var(--navy); font-weight: 600;">{record}</p>
+        </div>
+      )}
+
+      <h2 style="color: var(--navy-deep); margin-bottom: 0.85rem;">What to include in a report</h2>
+      <p>To help us verify and update a record quickly, please prepare:</p>
+      <ul style="margin: 0 0 1.5rem; padding-left: 1.25rem; color: var(--ink-soft); display: grid; gap: 0.4rem;">
+        <li><strong>Page Link:</strong> The specific URL on Better Pila you are referencing.</li>
+        <li><strong>Specific Detail:</strong> The exact figure, date, name, or statement you believe is inaccurate.</li>
+        <li><strong>Primary Source:</strong> A link, scan, or reference to an official public document (e.g. gazette, resolution, ordinance, memo) supporting the correction.</li>
+        <li><strong>Contact Details:</strong> Your name and email address so our reviewers can follow up if additional context is needed. Your personal details will remain confidential.</li>
+      </ul>
+
+      <h2 style="color: var(--navy-deep); margin-top: 2rem; margin-bottom: 0.85rem;">What happens next</h2>
+      <ol style="margin: 0 0 1.5rem; padding-left: 1.25rem; color: var(--ink-soft); display: grid; gap: 0.5rem;">
+        <li><strong>Intake:</strong> A volunteer editor logs the submission in our verification backlog.</li>
+        <li><strong>Verification:</strong> The cited primary source is inspected and cross-referenced with municipal records.</li>
+        <li><strong>Action:</strong> If verified, the record is updated immediately. Material corrections include a public revision note documenting the change.</li>
+      </ol>
+
+      <div style="background: var(--paper-subtle); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.4rem; margin-top: 2rem;">
+        <h3 style="margin: 0 0 0.4rem; font-size: 1.05rem; color: var(--navy-deep);">Public Launch Contact</h3>
+        <p style="margin: 0; font-size: 0.9rem; color: var(--ink-soft);">
+          The automated web submission form will open with the public launch. In the meantime, direct corrections may be submitted via GitHub issues on our repository or through our community liaison channels.
+        </p>
+      </div>
+
+      <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line);">
+        <a href="/" class="button button-primary">← Return to homepage</a>
+      </div>
+    </article>
+  </section>
+</BaseLayout>

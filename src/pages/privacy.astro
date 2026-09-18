@@ -1,12 +1,56 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
-<BaseLayout title="Privacy — Better Pila" description="Better Pila privacy commitments.">
-  <header class="page-hero"><div class="narrow"><div class="breadcrumb"><a href="/">Home</a><span>/</span><span>Privacy</span></div><p class="eyebrow">Data minimization</p><h1>Collect less. Protect what remains.</h1></div></header>
-  <article class="section narrow content paper">
-    <h2>Current collection</h2><p>The initial public portal does not offer public accounts, advertising, or an open submission form. Operational logs may contain basic request information needed to keep the service reliable and secure.</p>
-    <h2>Public records</h2><p>Better Pila publishes legitimate public-interest information and official public-contact details. It does not intentionally publish private addresses, personal phone numbers, identity numbers, signatures, or unrelated personal information.</p>
-    <h2>Future forms and analytics</h2><p>This notice will be updated before a correction form or analytics is enabled. Optional contact information will be retained only as long as needed to resolve the request.</p>
-  </article>
-</BaseLayout>
 
+<BaseLayout
+  title="Privacy Policy — Better Pila"
+  description="Better Pila privacy commitments, data minimization, and protection of citizen privacy."
+>
+  <header class="page-hero">
+    <div class="narrow">
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Privacy</span>
+      </div>
+      <p class="eyebrow">Data Minimization</p>
+      <h1>Collect less. Protect what remains.</h1>
+      <p class="lede">
+        Our architecture is built on privacy by default. Better Pila exists to inform citizens, not track them.
+      </p>
+    </div>
+  </header>
+
+  <section class="section narrow">
+    <article class="paper content">
+      <h2 style="color: var(--navy-deep); margin-bottom: 0.85rem;">No Tracking, No Advertising</h2>
+      <p>
+        Better Pila does not use third-party advertising networks, behavioral tracking pixels, commercial data brokers, or invasive analytics trackers. You can browse all public directories freely without creating an account or providing personal information.
+      </p>
+
+      <div style="background: var(--paper-subtle); border-left: 4px solid var(--navy); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 1.25rem; margin: 1.8rem 0;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1.05rem; color: var(--navy-deep);">Our Privacy Commitments</h3>
+        <ul style="margin: 0; padding-left: 1.25rem; color: var(--ink-soft); font-size: 0.94rem; display: grid; gap: 0.4rem;">
+          <li><strong>Zero Cross-Site Tracking:</strong> No tracking cookies or commercial telemetry.</li>
+          <li><strong>Data Minimization:</strong> Server logs store only technical headers strictly required for security and uptime.</li>
+          <li><strong>Public Records Ethics:</strong> We publish official public contact details (e.g., office hotlines), never private phone numbers, home addresses, or identity card numbers.</li>
+        </ul>
+      </div>
+
+      <h2 style="color: var(--navy-deep); margin-top: 2rem; margin-bottom: 0.85rem;">Public Records and Redaction</h2>
+      <p>
+        In accordance with the Data Privacy Act of 2012 (Republic Act No. 10173) and civic ethics, Better Pila redacts sensitive personal information (such as personal mobile numbers, handwritten signatures, Taxpayer Identification Numbers, or private residences) from publicly hosted document scans.
+      </p>
+
+      <h2 style="color: var(--navy-deep); margin-top: 2rem; margin-bottom: 0.85rem;">Contact & Privacy Inquiries</h2>
+      <p>
+        If you discover an inadvertent disclosure of private, sensitive, or confidential personal information on Better Pila, please flag the page immediately through our corrections protocol. Urgent redactions are prioritized and expedited immediately.
+      </p>
+
+      <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line); display: flex; gap: 0.8rem;">
+        <a href="/" class="button button-primary">← Return to homepage</a>
+        <a href="/corrections" class="button button-secondary">Request redaction or correction</a>
+      </div>
+    </article>
+  </section>
+</BaseLayout>
