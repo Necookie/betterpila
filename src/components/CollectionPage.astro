@@ -1,10 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { listPublishedRecords } from "../lib/database";
-import { collectionMeta, type RecordType } from "../lib/types";
+import { collectionMeta, recordTypes, type RecordType } from "../lib/types";
 import RecordCard from "./RecordCard.astro";
 
-interface Props { type: RecordType }
+interface Props {
+  type: RecordType;
+}
 const { type } = Astro.props;
 const meta = collectionMeta[type];
 const q = Astro.url.searchParams.get("q")?.trim() ?? "";
@@ -14,30 +16,87 @@ const records = await listPublishedRecords(type, q);
 <BaseLayout title={`${meta.plural} — Better Pila`} description={meta.description}>
   <header class="page-hero">
     <div class="container">
-      <div class="breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span>{meta.plural}</span></div>
-      <p class="eyebrow">Public directory</p>
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Directories</span>
+        <span class="breadcrumb-sep">/</span>
+        <span>{meta.plural}</span>
+      </div>
+      <p class="eyebrow">Public Directory</p>
       <h1>{meta.plural}</h1>
-      <p class="lede">{meta.description} Every published entry includes its supporting sources and verification date.</p>
+      <p class="lede">{meta.description} All entries require primary source citations and explicit verification timestamps before publication.</p>
     </div>
   </header>
+
   <section class="section">
     <div class="container">
+      <!-- Directory Switcher Navigation -->
+      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;" aria-label="Directory categories">
+        {recordTypes.map((item) => (
+          <a
+            href={collectionMeta[item].href}
+            class={item === type ? "button button-primary" : "button button-secondary"}
+            style="min-height: 36px; padding: 0.4rem 0.85rem; font-size: 0.84rem;"
+          >
+            {collectionMeta[item].plural}
+          </a>
+        ))}
+      </div>
+
+      <!-- Search Toolbar -->
       <form class="toolbar" method="get" role="search">
         <div class="field field-grow">
           <label for="collection-search">Search {meta.plural.toLowerCase()}</label>
-          <input id="collection-search" type="search" name="q" value={q} placeholder={`Search ${meta.plural.toLowerCase()}…`} />
+          <input
+            id="collection-search"
+            type="search"
+            name="q"
+            value={q}
+            placeholder={`Search ${meta.plural.toLowerCase()} by name, role, number, or details…`}
+          />
         </div>
-        <button class="button button-secondary" type="submit">Search</button>
+        <button class="button button-primary" type="submit">Search</button>
+        {q && (
+          <a href={meta.href} class="button button-secondary">Clear filter</a>
+        )}
       </form>
+
       {records.length > 0 ? (
-        <div class="records">{records.map((record) => <RecordCard record={record} />)}</div>
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <p style="margin: 0; font-size: 0.88rem; color: var(--ink-soft); font-weight: 600;">
+              Showing {records.length} {records.length === 1 ? meta.singular.toLowerCase() : meta.plural.toLowerCase()}
+              {q && <span> matching <strong>"{q}"</strong></span>}
+            </p>
+          </div>
+          <div class="records">
+            {records.map((record) => <RecordCard record={record} />)}
+          </div>
+        </div>
       ) : (
         <div class="empty-state">
-          <h2>{q ? "No matching verified records" : "Verification is underway"}</h2>
-          <p>{q ? "Try a shorter search or clear the filter." : `Better Pila has not published verified ${meta.plural.toLowerCase()} yet. Records will appear here only after their sources have been reviewed.`}</p>
+          <div class="empty-state-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+          <h2>{q ? "No matching records found" : `No verified ${meta.plural.toLowerCase()} yet`}</h2>
+          <p>
+            {q
+              ? `No records in ${meta.plural.toLowerCase()} matched your search "${q}". Try using different terms or view all entries.`
+              : `Better Pila has not published verified ${meta.plural.toLowerCase()} yet. Records will appear here only after primary sources have been checked and verified.`}
+          </p>
+          <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 0.75rem;">
+            {q ? (
+              <a class="button button-primary" href={meta.href}>Reset search filter</a>
+            ) : (
+              <a class="button button-secondary" href="/methodology">Review verification standard</a>
+            )}
+          </div>
         </div>
       )}
     </div>
   </section>
 </BaseLayout>
-

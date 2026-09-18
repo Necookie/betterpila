@@ -2,16 +2,54 @@
 import { formatDate, publicPath } from "../lib/format";
 import { collectionMeta, type PublicRecord } from "../lib/types";
 
-interface Props { record: PublicRecord }
+interface Props {
+  record: PublicRecord;
+}
 const { record } = Astro.props;
+const meta = collectionMeta[record.type];
 ---
 
 <article class="record-card">
-  <div>
-    <span class="category-kicker">{collectionMeta[record.type].singular}</span>
-    <h2><a href={publicPath(record.type, record.slug)}>{record.title}</a></h2>
+  <div class="record-card-main">
+    <div style="display: flex; align-items: center; gap: 0.6rem;">
+      <span class="category-kicker" style="color: var(--navy); background: var(--blue-soft); padding: 0.2rem 0.55rem; border-radius: 4px; border: 1px solid var(--blue-border); font-size: 0.72rem;">
+        {meta.singular}
+      </span>
+      {record.payload && typeof record.payload.position === "string" && (
+        <span style="font-size: 0.8rem; color: var(--ink-soft); font-weight: 600;">
+          {record.payload.position}
+        </span>
+      )}
+      {record.payload && typeof record.payload.officialNumber === "string" && (
+        <span style="font-size: 0.8rem; color: var(--ink-soft); font-weight: 600;">
+          {record.payload.officialNumber}
+        </span>
+      )}
+    </div>
+    <h2>
+      <a href={publicPath(record.type, record.slug)}>
+        {record.title}
+      </a>
+    </h2>
     <p>{record.summary}</p>
   </div>
-  <div class="record-meta">Verified {formatDate(record.lastVerifiedAt)}</div>
+  <div class="record-meta">
+    {record.lastVerifiedAt ? (
+      <span class="verified-pill" title="Verified against primary sources">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span>Verified {formatDate(record.lastVerifiedAt)}</span>
+      </span>
+    ) : (
+      <span class="badge badge-draft">Under verification</span>
+    )}
+    <a href={publicPath(record.type, record.slug)} class="card-arrow" style="margin-top: 0.25rem;">
+      <span>View record</span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14"></path>
+        <path d="m12 5 7 7-7 7"></path>
+      </svg>
+    </a>
+  </div>
 </article>
-
