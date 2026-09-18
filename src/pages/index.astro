@@ -2,10 +2,20 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import RecordCard from "../components/RecordCard.astro";
 import { listPublishedRecords } from "../lib/database";
-import { collectionMeta, recordTypes } from "../lib/types";
+import { collectionMeta, recordTypes, type RecordType } from "../lib/types";
 
-const latest = (await listPublishedRecords()).slice(0, 4);
+const latest = (await listPublishedRecords()).slice(0, 6);
 const categories = recordTypes.map((type) => ({ type, ...collectionMeta[type] }));
+
+const categoryIcons: Record<RecordType, string> = {
+  official: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  office: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg>`,
+  budget: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>`,
+  project: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7-6H4a2 2 0 0 0-2 2Z"/><path d="M14 2v6h6"/><path d="M10 12v6"/><path d="M14 15v3"/><path d="M6 16v2"/></svg>`,
+  ordinance: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
+  resolution: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>`,
+};
+
 const structuredData = [
   {
     "@context": "https://schema.org",
@@ -25,63 +35,174 @@ const structuredData = [
 ---
 
 <BaseLayout structuredData={structuredData}>
+  <!-- Hero Section -->
   <section class="hero">
     <div class="container hero-grid">
       <div>
-        <p class="eyebrow">Pila, Laguna · Public information</p>
-        <h1>Know what shapes your town.</h1>
-        <p class="lede">Find officials, public offices, budgets, projects, and local legislation—with the original sources and verification dates kept close.</p>
+        <div class="hero-pill">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          <span>Civic Transparency Initiative · Pila, Laguna</span>
+        </div>
+        <h1>Know what shapes <span class="gold-highlight">your town</span>.</h1>
+        <p class="lede">
+          Access verified public information on municipal officials, local government offices, budgets, infrastructure projects, and enacted ordinances—with primary sources and verification dates kept close.
+        </p>
+
         <form class="search-bar" action="/search" method="get" role="search">
-          <label class="sr-only" for="home-search">Search Better Pila</label>
-          <input id="home-search" name="q" type="search" placeholder="Search a person, office, project, or ordinance" />
-          <button class="button button-primary" type="submit">Search records</button>
+          <label class="sr-only" for="home-search">Search Better Pila records</label>
+          <div class="search-input-wrapper">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </svg>
+            <input id="home-search" name="q" type="search" placeholder="Search an official, office, project, or ordinance…" />
+          </div>
+          <button class="button button-primary" type="submit">
+            <span>Search records</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </button>
         </form>
+
+        <div class="search-tags" aria-label="Quick search suggestions">
+          <span>Quick links:</span>
+          <a class="search-tag-link" href="/officials">Mayor & Council</a>
+          <a class="search-tag-link" href="/budgets">Annual Budget</a>
+          <a class="search-tag-link" href="/offices">Health & Social Services</a>
+          <a class="search-tag-link" href="/ordinances">Zoning & Ordinances</a>
+        </div>
       </div>
+
       <div class="hero-note">
-        <strong>Independent and source-first.</strong><br />
-        Better Pila is maintained by volunteers and is not an official website of the Municipality of Pila. Information is published only after its sources are reviewed.
+        <div class="hero-note-header">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            <path d="m9 12 2 2 4-4"></path>
+          </svg>
+          <span>Source-First & Verified</span>
+        </div>
+        <p style="margin: 0 0 0.8rem;">
+          Better Pila is an independent, non-partisan civic archive. We publish public interest data only after reviewing primary government sources, gazettes, and official releases.
+        </p>
+        <div style="font-size: 0.82rem; color: #a5c3dd; border-top: 1px solid rgb(255 255 255 / 0.12); padding-top: 0.75rem;">
+          Not affiliated with any political candidate or the municipal government of Pila.
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- Topic Directories -->
   <section class="section" aria-labelledby="browse-title">
     <div class="container">
       <div class="section-header">
         <div>
-          <p class="eyebrow">Public record</p>
-          <h2 id="browse-title">Browse by topic</h2>
-          <p>Each section uses the same sourcing and review standard.</p>
+          <p class="eyebrow">Civic Directories</p>
+          <h2 id="browse-title">Explore by directory</h2>
+          <p>Each directory follows the same rigorous verification and neutral reporting standard.</p>
         </div>
       </div>
+
       <div class="category-grid">
         {categories.map((category, index) => (
           <a class="category-card" href={category.href}>
-            <span class="category-kicker">{String(index + 1).padStart(2, "0")}</span>
+            <div class="category-card-top">
+              <div class="category-icon-box" set:html={categoryIcons[category.type]} />
+              <span class="category-kicker">{String(index + 1).padStart(2, "0")} · {category.type}</span>
+            </div>
             <h3>{category.plural}</h3>
             <p>{category.description}</p>
-            <span class="card-arrow">Open directory →</span>
+            <span class="card-arrow">
+              <span>Open directory</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </span>
           </a>
         ))}
       </div>
     </div>
   </section>
 
+  <!-- Trust Pillars Section -->
+  <section class="section-tight" style="background: var(--paper-subtle); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Integrity & Standard</p>
+          <h2>How records earn their place</h2>
+          <p>Every piece of data on Better Pila is held to three foundational editorial rules.</p>
+        </div>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-card">
+          <div class="trust-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <path d="m9 15 2 2 4-4"></path>
+            </svg>
+          </div>
+          <h3>Primary Sources First</h3>
+          <p>We prioritize signed municipal resolutions, certified budget ordinances, and official COA audit reports over informal reports or hearsay.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <h3>Visible Verification Dates</h3>
+          <p>Every record displays when researchers checked the facts and when it is due for scheduled review to prevent stale information from lingering.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <h3>Open Corrections Protocol</h3>
+          <p>Any resident or official can submit documented corrections. Errors are acknowledged and documented under a visible editorial trail.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Change Log / Recently Published -->
   <section class="section" aria-labelledby="latest-title">
     <div class="container">
       <div class="section-header">
         <div>
-          <p class="eyebrow">Change log</p>
+          <p class="eyebrow">Public Gazette</p>
           <h2 id="latest-title">Recently published</h2>
-          <p>New and materially updated verified records appear here.</p>
+          <p>Newly verified public records and substantive updates appear here.</p>
         </div>
       </div>
-      {latest.length ? <div class="records">{latest.map((record) => <RecordCard record={record} />)}</div> : (
+      {latest.length > 0 ? (
+        <div class="records">
+          {latest.map((record) => <RecordCard record={record} />)}
+        </div>
+      ) : (
         <div class="empty-state">
-          <h2>Research is in progress</h2>
-          <p>No verified records have been published yet. The structure is ready; maintainers can now collect sources and review the first entries.</p>
+          <div class="empty-state-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <path d="M12 18v-6"></path>
+              <path d="M9 15h6"></path>
+            </svg>
+          </div>
+          <h2>Civic research in progress</h2>
+          <p>
+            The technical registry and verification pipelines are operational. Maintainers are currently validating initial primary sources for the first set of verified publications.
+          </p>
+          <div style="margin-top: 1.5rem;">
+            <a class="button button-secondary" href="/methodology">Read our verification criteria →</a>
+          </div>
         </div>
       )}
     </div>
   </section>
 </BaseLayout>
-
