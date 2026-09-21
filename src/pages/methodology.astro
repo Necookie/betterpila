@@ -23,66 +23,66 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
   <section class="section narrow">
     <article class="paper content">
-      <div style="display: grid; gap: 1.6rem; margin-bottom: 2rem;">
-        <!-- Step 1 -->
-        <div style="border-left: 4px solid var(--navy); padding-left: 1.25rem;">
-          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
-            <span style="font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-dark); background: #fef3c7; padding: 0.2rem 0.5rem; border-radius: 4px;">Pillar 1</span>
-            <h2 style="margin: 0; font-size: 1.25rem; color: var(--navy-deep);">Primary Sources First</h2>
+      <div style="display: grid; gap: 1.8rem; margin-bottom: 2rem;">
+        <!-- Pillar 1 -->
+        <div style="border-left: 4px solid var(--navy-2); padding-left: 1.4rem;">
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.4rem;">
+            <span class="docket-chip" style="color: var(--gold-dark); background: var(--gold-soft); border-color: var(--gold-border);">Protocol 01</span>
+            <h2 style="margin: 0; font-family: var(--font-serif); font-size: 1.3rem; color: var(--navy-deep);">Primary Government Sources First</h2>
           </div>
-          <p style="margin: 0; color: var(--ink-soft); font-size: 0.95rem;">
-            We prioritize official government documents: signed municipal ordinances, certified council resolutions, Commission on Audit (COA) reports, full disclosure portal uploads, and registered agency filings. Secondary media reports are used only to locate documents, never as the sole evidence for consequential facts.
+          <p style="margin: 0; color: var(--ink-soft); font-size: 0.95rem; line-height: 1.65;">
+            We index information derived directly from primary public records: certified municipal ordinances signed by the Sangguniang Bayan, executive orders issued by the Municipal Mayor, Commission on Audit (COA) Annual Audit Reports, and official DILG Full Disclosure submissions. Secondary news articles or social media reports are treated solely as discovery leads—never as conclusive evidence for factual claims.
           </p>
         </div>
 
-        <!-- Step 2 -->
-        <div style="border-left: 4px solid var(--navy); padding-left: 1.25rem;">
-          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
-            <span style="font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-dark); background: #fef3c7; padding: 0.2rem 0.5rem; border-radius: 4px;">Pillar 2</span>
-            <h2 style="margin: 0; font-size: 1.25rem; color: var(--navy-deep);">Mandatory Human Review</h2>
+        <!-- Pillar 2 -->
+        <div style="border-left: 4px solid var(--navy-2); padding-left: 1.4rem;">
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.4rem;">
+            <span class="docket-chip" style="color: var(--gold-dark); background: var(--gold-soft); border-color: var(--gold-border);">Protocol 02</span>
+            <h2 style="margin: 0; font-family: var(--font-serif); font-size: 1.3rem; color: var(--navy-deep);">Mandatory Human Review & Dual-Key Verification</h2>
           </div>
-          <p style="margin: 0; color: var(--ink-soft); font-size: 0.95rem;">
-            Every substantive entry requires a named reviewer, direct citation, and verification date. Draft records remain sequestered from the public website until names, spellings, financial amounts, official dates, privacy safeguards, and neutral wording are verified.
+          <p style="margin: 0; color: var(--ink-soft); font-size: 0.95rem; line-height: 1.65;">
+            Every record requires explicit human verification, primary source attachment, and review prior to publication. Numerical amounts, official titles, effective dates, and statutory references are checked against primary document scans. Unreviewed entries remain strictly sequestered in quarantine.
           </p>
         </div>
 
-        <!-- Step 3 -->
-        <div style="border-left: 4px solid var(--navy); padding-left: 1.25rem;">
-          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
-            <span style="font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-dark); background: #fef3c7; padding: 0.2rem 0.5rem; border-radius: 4px;">Pillar 3</span>
-            <h2 style="margin: 0; font-size: 1.25rem; color: var(--navy-deep);">Explicit Acknowledgment of Uncertainty</h2>
+        <!-- Pillar 3 -->
+        <div style="border-left: 4px solid var(--navy-2); padding-left: 1.4rem;">
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.4rem;">
+            <span class="docket-chip" style="color: var(--gold-dark); background: var(--gold-soft); border-color: var(--gold-border);">Protocol 03</span>
+            <h2 style="margin: 0; font-family: var(--font-serif); font-size: 1.3rem; color: var(--navy-deep);">Explicit Acknowledgment of Gaps & Limitations</h2>
           </div>
-          <p style="margin: 0; color: var(--ink-soft); font-size: 0.95rem;">
-            When official sources conflict, omit information, or present gaps, Better Pila explicitly notes the limitation rather than making assumptions. A missing value is never quietly assumed to be zero.
+          <p style="margin: 0; color: var(--ink-soft); font-size: 0.95rem; line-height: 1.65;">
+            When official documentation is incomplete, illegible, or conflicting, Better Pila explicitly documents the gap rather than extrapolating or making editorial assumptions. A missing budget item is never assumed to be zero without official certified certification.
           </p>
         </div>
 
-        <!-- Step 4 -->
-        <div style="border-left: 4px solid var(--navy); padding-left: 1.25rem;">
-          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
-            <span style="font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-dark); background: #fef3c7; padding: 0.2rem 0.5rem; border-radius: 4px;">Pillar 4</span>
-            <h2 style="margin: 0; font-size: 1.25rem; color: var(--navy-deep);">Scheduled Recertification (Living Records)</h2>
+        <!-- Pillar 4 -->
+        <div style="border-left: 4px solid var(--navy-2); padding-left: 1.4rem;">
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.4rem;">
+            <span class="docket-chip" style="color: var(--gold-dark); background: var(--gold-soft); border-color: var(--gold-border);">Protocol 04</span>
+            <h2 style="margin: 0; font-family: var(--font-serif); font-size: 1.3rem; color: var(--navy-deep);">Scheduled Recertification Audits</h2>
           </div>
-          <p style="margin: 0; color: var(--ink-soft); font-size: 0.95rem;">
-            Municipal phone numbers, office personnel, active capital infrastructure, and current leaders undergo scheduled recertification. Superseded historical ordinances remain indexed with clear tags marking them as superseded or historical.
+          <p style="margin: 0; color: var(--ink-soft); font-size: 0.95rem; line-height: 1.65;">
+            Municipal contacts, office assignments, capital projects, and leadership roles are scheduled for regular periodic audits to prevent information decay. Historical legislation is retained with clear status markers indicating whether an ordinance remains active or has been amended/superseded.
           </p>
         </div>
 
-        <!-- Step 5 -->
-        <div style="border-left: 4px solid var(--navy); padding-left: 1.25rem;">
-          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
-            <span style="font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-dark); background: #fef3c7; padding: 0.2rem 0.5rem; border-radius: 4px;">Pillar 5</span>
-            <h2 style="margin: 0; font-size: 1.25rem; color: var(--navy-deep);">Open Corrections & Public Audit Trail</h2>
+        <!-- Pillar 5 -->
+        <div style="border-left: 4px solid var(--navy-2); padding-left: 1.4rem;">
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.4rem;">
+            <span class="docket-chip" style="color: var(--gold-dark); background: var(--gold-soft); border-color: var(--gold-border);">Protocol 05</span>
+            <h2 style="margin: 0; font-family: var(--font-serif); font-size: 1.3rem; color: var(--navy-deep);">Public Corrections Ledger & Evidentiary Standard</h2>
           </div>
-          <p style="margin: 0; color: var(--ink-soft); font-size: 0.95rem;">
-            Errors reported by readers with verifiable evidence are acknowledged promptly. Material changes receive an explanatory correction badge, maintaining transparency throughout the revision lifecycle.
+          <p style="margin: 0; color: var(--ink-soft); font-size: 0.95rem; line-height: 1.65;">
+            We invite residents, barangay officials, and municipal staff to submit corrections accompanied by primary documentation. When corrections are verified, changes are logged transparently to ensure an uncompromised public record.
           </p>
         </div>
       </div>
 
-      <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-        <span style="font-size: 0.88rem; color: var(--ink-soft);">Have questions regarding our verification pipeline?</span>
-        <a href="/corrections" class="button button-secondary">Review corrections policy →</a>
+      <div style="margin-top: 2.2rem; padding-top: 1.5rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <span style="font-size: 0.9rem; color: var(--ink-soft);">Have an official municipal document to submit?</span>
+        <a href="/corrections" class="button button-primary">Submit primary document →</a>
       </div>
     </article>
   </section>
