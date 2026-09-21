@@ -78,21 +78,25 @@ const records = await listPublishedRecords(type, q);
         <div class="empty-state">
           <div class="empty-state-icon">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <path d="M12 8v4"></path>
+              <path d="M12 16h.01"></path>
             </svg>
           </div>
-          <h2>{q ? "No matching records found" : `No verified ${meta.plural.toLowerCase()} yet`}</h2>
+          <h2>{q ? "No matching records found" : "Verification is underway"}</h2>
           <p>
             {q
               ? `No records in ${meta.plural.toLowerCase()} matched your search "${q}". Try using different terms or view all entries.`
-              : `Better Pila has not published verified ${meta.plural.toLowerCase()} yet. Records will appear here only after primary sources have been checked and verified.`}
+              : `Better Pila has not published verified ${meta.plural.toLowerCase()} yet. Records will appear here only after primary sources have been checked and verified against municipal gazettes and certified council records.`}
           </p>
-          <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 0.75rem;">
+          <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
             {q ? (
               <a class="button button-primary" href={meta.href}>Reset search filter</a>
             ) : (
-              <a class="button button-secondary" href="/methodology">Review verification standard</a>
+              <>
+                <a class="button button-primary" href="/methodology">Review verification standard</a>
+                <a class="button button-secondary" href="/corrections">Submit primary documents</a>
+              </>
             )}
           </div>
         </div>

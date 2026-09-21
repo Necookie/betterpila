@@ -26,8 +26,28 @@ const records = q || type ? await listPublishedRecords(type, q) : [];
 
   <section class="section">
     <div class="container">
+      <!-- Category Switcher Chips -->
+      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.4rem;" aria-label="Quick directory filters">
+        <a
+          href={`/search${q ? `?q=${encodeURIComponent(q)}` : ""}`}
+          class={!type ? "button button-primary" : "button button-secondary"}
+          style="min-height: 34px; padding: 0.35rem 0.8rem; font-size: 0.82rem;"
+        >
+          All Directories
+        </a>
+        {recordTypes.map((item) => (
+          <a
+            href={`/search?type=${item}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
+            class={item === type ? "button button-primary" : "button button-secondary"}
+            style="min-height: 34px; padding: 0.35rem 0.8rem; font-size: 0.82rem;"
+          >
+            {collectionMeta[item].plural}
+          </a>
+        ))}
+      </div>
+
       <!-- Search Form -->
-      <form class="toolbar" method="get" role="search" style="margin-bottom: 2rem;">
+      <form class="toolbar" method="get" role="search" style="margin-bottom: 1.8rem;">
         <div class="field field-grow">
           <label for="q">Search terms</label>
           <input
@@ -35,7 +55,8 @@ const records = q || type ? await listPublishedRecords(type, q) : [];
             name="q"
             type="search"
             value={q}
-            placeholder="Search by name, title, department, keyword, or document number…"
+            placeholder="Search by name, position, document number, barangay, or keyword…"
+            autofocus
           />
         </div>
         <div class="field">
@@ -58,6 +79,16 @@ const records = q || type ? await listPublishedRecords(type, q) : [];
           <a href="/search" class="button button-secondary">Clear</a>
         )}
       </form>
+
+      <!-- Quick query suggestion tags -->
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: 2rem; font-size: 0.82rem; color: var(--ink-muted);">
+        <span style="font-weight: 600;">Suggestions:</span>
+        <a href="/search?q=Sangguniang+Bayan" class="search-tag-link" style="color: var(--ink-soft); background: var(--paper-subtle); border-color: var(--line);">Sangguniang Bayan</a>
+        <a href="/search?q=Mayor" class="search-tag-link" style="color: var(--ink-soft); background: var(--paper-subtle); border-color: var(--line);">Mayor's Office</a>
+        <a href="/search?q=Budget" class="search-tag-link" style="color: var(--ink-soft); background: var(--paper-subtle); border-color: var(--line);">Annual Budget</a>
+        <a href="/search?q=Health" class="search-tag-link" style="color: var(--ink-soft); background: var(--paper-subtle); border-color: var(--line);">Health Office</a>
+        <a href="/search?q=Ordinance" class="search-tag-link" style="color: var(--ink-soft); background: var(--paper-subtle); border-color: var(--line);">Municipal Ordinances</a>
+      </div>
 
       {q || type ? (
         records.length > 0 ? (
