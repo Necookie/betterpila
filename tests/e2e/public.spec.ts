@@ -27,3 +27,10 @@ test("admin pages are not indexed", async ({ page }) => {
   expect(response?.headers()["x-robots-tag"]).toContain("noindex");
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
 });
+
+test("keyboard shortcut / focuses the search input", async ({ page }) => {
+  await page.goto("/");
+  await page.keyboard.press("/");
+  await expect(page.locator("#home-search")).toBeFocused();
+});
+
