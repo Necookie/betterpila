@@ -55,7 +55,7 @@ const structuredData = [
               <circle cx="11" cy="11" r="8"></circle>
               <path d="m21 21-4.3-4.3"></path>
             </svg>
-            <input id="home-search" name="q" type="search" placeholder="Search an official, office, project, or ordinance…" />
+            <input id="home-search" name="q" type="search" placeholder="Search an official, office, ordinance, budget, or project…" />
           </div>
           <button class="button button-primary" type="submit">
             <span>Search records</span>
@@ -67,27 +67,52 @@ const structuredData = [
         </form>
 
         <div class="search-tags" aria-label="Quick search suggestions">
-          <span>Quick links:</span>
-          <a class="search-tag-link" href="/officials">Mayor & Council</a>
-          <a class="search-tag-link" href="/budgets">Annual Budget</a>
-          <a class="search-tag-link" href="/offices">Health & Social Services</a>
+          <span>Quick lookup:</span>
+          <a class="search-tag-link" href="/officials">Mayor & Sangguniang Bayan</a>
+          <a class="search-tag-link" href="/budgets">Annual Budget & AIP</a>
+          <a class="search-tag-link" href="/offices">Municipal Offices & Hotlines</a>
           <a class="search-tag-link" href="/ordinances">Zoning & Ordinances</a>
+          <a class="search-tag-link" href="/projects">Capital Projects</a>
         </div>
       </div>
 
-      <div class="hero-note">
-        <div class="hero-note-header">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-            <path d="m9 12 2 2 4-4"></path>
-          </svg>
-          <span>Source-First & Verified</span>
+      <div class="docket-card" aria-labelledby="docket-heading">
+        <div class="docket-header">
+          <div class="docket-title" id="docket-heading">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <path d="m9 12 2 2 4-4"></path>
+            </svg>
+            <span>Municipal Gazette Docket</span>
+          </div>
+          <span class="docket-chip">Bayan ng Pila</span>
         </div>
-        <p style="margin: 0 0 0.8rem;">
-          Better Pila is an independent, non-partisan civic archive. We publish public interest data only after reviewing primary government sources, gazettes, and official releases.
-        </p>
-        <div style="font-size: 0.82rem; color: #a5c3dd; border-top: 1px solid rgb(255 255 255 / 0.12); padding-top: 0.75rem;">
-          Not affiliated with any political candidate or the municipal government of Pila.
+        <div class="docket-list">
+          <div class="docket-item">
+            <a href="/ordinances">
+              <span>Sangguniang Bayan Legislation</span>
+              <span aria-hidden="true" style="color: #edd59b;">→</span>
+            </a>
+            <small>Enacted municipal ordinances, resolutions, and regulatory codes</small>
+          </div>
+          <div class="docket-item">
+            <a href="/budgets">
+              <span>Annual Investment Program (AIP)</span>
+              <span aria-hidden="true" style="color: #edd59b;">→</span>
+            </a>
+            <small>Certified municipal revenue allocations, expenditures, and COA audits</small>
+          </div>
+          <div class="docket-item">
+            <a href="/officials">
+              <span>Municipal Leadership & 17 Barangays</span>
+              <span aria-hidden="true" style="color: #edd59b;">→</span>
+            </a>
+            <small>Municipal Mayor, Vice Mayor, SB Members, and Barangay Captains</small>
+          </div>
+        </div>
+        <div style="font-size: 0.8rem; color: #a2bed6; border-top: 1px solid rgb(255 255 255 / 0.1); padding-top: 0.8rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+          <span>Source-first · Non-partisan civic archive</span>
+          <a href="/methodology" style="color: #fde68a; text-decoration: underline; font-size: 0.78rem;">Verification criteria →</a>
         </div>
       </div>
     </div>
