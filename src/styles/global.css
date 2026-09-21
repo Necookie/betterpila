@@ -783,37 +783,44 @@ h1, h2, h3, h4 {
 .breadcrumb-sep { color: #94a3b8; font-size: 0.75rem; }
 
 /* Records List */
-.records { display: grid; gap: 0.95rem; }
+.records { display: grid; gap: 1rem; }
 .record-card {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
-  gap: 1.25rem;
-  padding: 1.35rem 1.6rem;
+  gap: 1.35rem;
+  padding: 1.4rem 1.65rem;
   border: 1px solid var(--line);
+  border-left: 4px solid var(--navy-light);
   border-radius: var(--radius);
   background: var(--white);
   box-shadow: var(--shadow-sm);
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
 }
 .record-card:hover {
   transform: translateY(-2px);
-  border-color: #cbd5e1;
+  border-color: var(--line-strong);
+  border-left-color: var(--gold);
   box-shadow: var(--shadow);
 }
 .record-card-main {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.4rem;
 }
 .record-card h2, .record-card h3 {
   margin: 0;
-  font-size: 1.18rem;
+  font-family: var(--font-serif);
+  font-size: 1.24rem;
+  font-weight: 700;
   letter-spacing: -0.015em;
+  line-height: 1.25;
 }
 .record-card h2 a, .record-card h3 a {
   text-decoration: none;
   color: var(--navy-deep);
+  transition: color 0.15s ease;
 }
 .record-card h2 a:hover, .record-card h3 a:hover {
   color: var(--navy-2);
@@ -822,14 +829,14 @@ h1, h2, h3, h4 {
 .record-card p {
   color: var(--ink-soft);
   margin: 0;
-  line-height: 1.55;
+  line-height: 1.6;
   font-size: 0.92rem;
 }
 .record-meta {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.35rem;
+  gap: 0.45rem;
   color: var(--ink-muted);
   font-size: 0.82rem;
   white-space: nowrap;
@@ -842,9 +849,11 @@ h1, h2, h3, h4 {
   border: 1px solid var(--success-border);
   color: var(--success);
   border-radius: var(--radius-full);
-  padding: 0.25rem 0.65rem;
-  font-size: 0.76rem;
-  font-weight: 750;
+  padding: 0.22rem 0.65rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  letter-spacing: 0.01em;
 }
 
 /* Badges */

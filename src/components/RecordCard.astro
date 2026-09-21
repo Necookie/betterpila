@@ -7,22 +7,31 @@ interface Props {
 }
 const { record } = Astro.props;
 const meta = collectionMeta[record.type];
+const docketCode = `BP-${record.type.slice(0, 3).toUpperCase()}-${record.slug.replace(/[^a-zA-Z0-9]/g, "").slice(0, 6).toUpperCase()}`;
 ---
 
 <article class="record-card">
   <div class="record-card-main">
-    <div style="display: flex; align-items: center; gap: 0.6rem;">
-      <span class="category-kicker" style="color: var(--navy); background: var(--blue-soft); padding: 0.2rem 0.55rem; border-radius: 4px; border: 1px solid var(--blue-border); font-size: 0.72rem;">
+    <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+      <span class="docket-chip">
+        {docketCode}
+      </span>
+      <span class="category-kicker" style="font-size: 0.72rem; padding: 0.15rem 0.5rem;">
         {meta.singular}
       </span>
       {record.payload && typeof record.payload.position === "string" && (
-        <span style="font-size: 0.8rem; color: var(--ink-soft); font-weight: 600;">
+        <span style="font-size: 0.82rem; color: var(--ink-soft); font-weight: 600;">
           {record.payload.position}
         </span>
       )}
       {record.payload && typeof record.payload.officialNumber === "string" && (
-        <span style="font-size: 0.8rem; color: var(--ink-soft); font-weight: 600;">
+        <span style="font-size: 0.82rem; color: var(--ink-soft); font-weight: 600; font-family: var(--font-mono);">
           {record.payload.officialNumber}
+        </span>
+      )}
+      {record.payload && typeof record.payload.fiscalYear === "string" && (
+        <span style="font-size: 0.82rem; color: var(--ink-soft); font-weight: 600; font-family: var(--font-mono);">
+          FY {record.payload.fiscalYear}
         </span>
       )}
     </div>
@@ -35,7 +44,7 @@ const meta = collectionMeta[record.type];
   </div>
   <div class="record-meta">
     {record.lastVerifiedAt ? (
-      <span class="verified-pill" title="Verified against primary sources">
+      <span class="verified-pill" title="Verified against primary government source">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
@@ -45,7 +54,7 @@ const meta = collectionMeta[record.type];
       <span class="badge badge-draft">Under verification</span>
     )}
     <a href={publicPath(record.type, record.slug)} class="card-arrow" style="margin-top: 0.25rem;">
-      <span>View record</span>
+      <span>Inspect dossier</span>
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M5 12h14"></path>
         <path d="m12 5 7 7-7 7"></path>
@@ -53,3 +62,4 @@ const meta = collectionMeta[record.type];
     </a>
   </div>
 </article>
+
