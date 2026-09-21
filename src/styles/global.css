@@ -2,40 +2,44 @@
 
 :root {
   color-scheme: light;
-  --ink: #0f1f31;
-  --ink-soft: #4a5c6e;
-  --ink-muted: #728497;
-  --navy: #0a2239;
-  --navy-light: #113254;
-  --navy-2: #16406b;
-  --navy-deep: #051525;
-  --paper: #f8fafc;
-  --paper-subtle: #f1f5f9;
+  --ink: #111a24;
+  --ink-soft: #384959;
+  --ink-muted: #647688;
+  --navy: #0b1f33;
+  --navy-light: #15324e;
+  --navy-2: #1b456e;
+  --navy-deep: #05101a;
+  --paper: #fbf9f5;
+  --paper-subtle: #f2eee5;
+  --paper-card: #ffffff;
   --white: #ffffff;
-  --line: #e2e8f0;
-  --line-strong: #cbd5e1;
-  --gold: #d9931b;
-  --gold-hover: #e5a12d;
-  --gold-soft: #fffbeb;
-  --gold-border: #fcd34d;
-  --gold-dark: #92400e;
-  --blue-soft: #eff6ff;
-  --blue-border: #bfdbfe;
-  --success: #059669;
-  --success-soft: #ecfdf5;
-  --success-border: #a7f3d0;
-  --danger: #dc2626;
-  --danger-soft: #fef2f2;
-  --danger-border: #fecaca;
-  --radius-sm: 0.4rem;
-  --radius: 0.8rem;
-  --radius-lg: 1.1rem;
+  --line: #e3ded4;
+  --line-strong: #c8c0b2;
+  --line-subtle: #eeece4;
+  --gold: #b87a14;
+  --gold-hover: #c98618;
+  --gold-soft: #fcf6ea;
+  --gold-border: #edd59b;
+  --gold-dark: #7a4b08;
+  --blue-soft: #eff5fa;
+  --blue-border: #bcd2e5;
+  --success: #0d5c48;
+  --success-soft: #eaf6f2;
+  --success-border: #9fd4c5;
+  --danger: #9f2424;
+  --danger-soft: #fcf1f1;
+  --danger-border: #f6c1c1;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.45rem;
+  --radius: 0.75rem;
+  --radius-lg: 1rem;
   --radius-full: 9999px;
-  --shadow-sm: 0 1px 3px 0 rgb(10 34 57 / 0.06);
-  --shadow: 0 6px 24px -2px rgb(10 34 57 / 0.07), 0 2px 6px -1px rgb(10 34 57 / 0.04);
-  --shadow-hover: 0 16px 36px -4px rgb(10 34 57 / 0.12), 0 4px 12px -2px rgb(10 34 57 / 0.06);
-  --font-serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, "Times New Roman", serif;
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --shadow-sm: 0 1px 3px 0 rgb(11 31 51 / 0.04), 0 1px 2px -1px rgb(11 31 51 / 0.04);
+  --shadow: 0 4px 18px -2px rgb(11 31 51 / 0.06), 0 2px 6px -1px rgb(11 31 51 / 0.03);
+  --shadow-hover: 0 12px 30px -4px rgb(11 31 51 / 0.1), 0 4px 10px -2px rgb(11 31 51 / 0.04);
+  --font-serif: "Newsreader", Charter, "Bitstream Charter", Cambria, Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-family: var(--font-sans);
   background: var(--paper);
   color: var(--ink);
@@ -1183,5 +1187,77 @@ h1, h2, h3, h4 {
   *, *::before, *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+  }
+}
+
+/* Civic Archival Utilities */
+.docket-chip {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.18rem 0.5rem;
+  border-radius: var(--radius-xs);
+  background: var(--paper-subtle);
+  border: 1px solid var(--line-strong);
+  color: var(--ink-soft);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.seal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.22rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: var(--success-soft);
+  border: 1px solid var(--success-border);
+  color: var(--success);
+}
+
+.heritage-watermark {
+  background-image: radial-gradient(var(--line) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.print-only { display: none; }
+
+/* Official Print Layout */
+@media print {
+  .site-header, .site-footer, .button, .search-bar, .toolbar, .skip-link, nav, .card-arrow {
+    display: none !important;
+  }
+  .print-only { display: block !important; }
+  body, main, .paper {
+    background: #ffffff !important;
+    color: #111111 !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 10.5pt !important;
+    line-height: 1.5 !important;
+  }
+  .page-hero {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border-bottom: 2pt solid #111111 !important;
+    padding: 1rem 0 !important;
+  }
+  .page-hero h1 {
+    color: #111111 !important;
+    font-size: 22pt !important;
+  }
+  .lede {
+    color: #333333 !important;
+  }
+  .detail-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
   }
 }
