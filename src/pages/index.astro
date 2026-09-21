@@ -134,12 +134,12 @@ const structuredData = [
           <a class="category-card" href={category.href}>
             <div class="category-card-top">
               <div class="category-icon-box" set:html={categoryIcons[category.type]} />
-              <span class="category-kicker">{String(index + 1).padStart(2, "0")} · {category.type}</span>
+              <span class="category-kicker">BP-DIR-{String(index + 1).padStart(2, "0")}</span>
             </div>
             <h3>{category.plural}</h3>
             <p>{category.description}</p>
             <span class="card-arrow">
-              <span>Open directory</span>
+              <span>Explore directory</span>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M5 12h14"></path>
                 <path d="m12 5 7 7-7 7"></path>
@@ -156,9 +156,9 @@ const structuredData = [
     <div class="container">
       <div class="section-header">
         <div>
-          <p class="eyebrow">Integrity & Standard</p>
+          <p class="eyebrow">Civic Standard</p>
           <h2>How records earn their place</h2>
-          <p>Every piece of data on Better Pila is held to three foundational editorial rules.</p>
+          <p>Every public entry on Better Pila adheres to three foundational archival principles.</p>
         </div>
       </div>
       <div class="trust-grid">
