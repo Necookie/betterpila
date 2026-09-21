@@ -1055,7 +1055,7 @@ h1, h2, h3, h4 {
   display: grid;
   grid-template-columns: 260px 1fr;
   min-height: 100vh;
-  background: #f1f5f9;
+  background: var(--paper-subtle);
 }
 .admin-side {
   background: var(--navy-deep);
@@ -1085,7 +1085,7 @@ h1, h2, h3, h4 {
   color: white;
 }
 .admin-main {
-  padding: 2rem 2.4rem;
+  padding: 2.2rem 2.6rem;
   min-width: 0;
 }
 .admin-top {
@@ -1096,9 +1096,10 @@ h1, h2, h3, h4 {
   margin-bottom: 2rem;
 }
 .admin-top h1 {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-size: clamp(1.8rem, 3.5vw, 2.3rem);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
+  color: var(--navy-deep);
   margin: 0;
 }
 .stats {
@@ -1108,17 +1109,18 @@ h1, h2, h3, h4 {
   margin-bottom: 1.8rem;
 }
 .stat {
-  background: white;
+  background: var(--white);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 1.2rem;
+  padding: 1.25rem 1.4rem;
   box-shadow: var(--shadow-sm);
 }
 .stat strong {
   display: block;
-  font-size: 2rem;
+  font-family: var(--font-mono);
+  font-size: 2.1rem;
   line-height: 1.1;
-  color: var(--navy-deep);
+}  color: var(--navy-deep);
   font-weight: 800;
 }
 .stat span {

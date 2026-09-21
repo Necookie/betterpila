@@ -264,9 +264,11 @@ export default function AdminDashboard({ initialRecords, identity }: Props) {
     <div className="admin-shell">
       <aside className="admin-side">
         <a className="brand" href="/admin">
-          <span className="brand-mark">BP</span>
+          <span className="brand-mark">
+            <ShieldCheck size={18} />
+          </span>
           <div className="brand-text">
-            <span className="brand-title" style={{ fontSize: "1.1rem" }}>Better Pila</span>
+            <span className="brand-title" style={{ fontSize: "1.15rem" }}>Better Pila</span>
             <span className="brand-subtitle">Editorial Desk</span>
           </div>
         </a>
