@@ -1120,7 +1120,7 @@ h1, h2, h3, h4 {
   font-family: var(--font-mono);
   font-size: 2.1rem;
   line-height: 1.1;
-}  color: var(--navy-deep);
+  color: var(--navy-deep);
   font-weight: 800;
 }
 .stat span {
