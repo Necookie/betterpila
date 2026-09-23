@@ -91,7 +91,10 @@ const records = await listPublishedRecords(type, q);
           </p>
           <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
             {q ? (
-              <a class="button button-primary" href={meta.href}>Reset search filter</a>
+              <>
+                <a class="button button-primary" href={meta.href}>Reset search filter</a>
+                <a class="button button-secondary" href={`/search?q=${encodeURIComponent(q)}`}>Search all directories for "{q}"</a>
+              </>
             ) : (
               <>
                 <a class="button button-primary" href="/methodology">Review verification standard</a>

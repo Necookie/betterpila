@@ -116,8 +116,13 @@ const records = q || type ? await listPublishedRecords(type, q) : [];
             <p>
               We couldn't find any verified records matching your query. Better Pila only displays information with confirmed primary sources.
             </p>
-            <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 0.75rem;">
+            <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
               <a class="button button-primary" href="/search">Clear search filters</a>
+              {q && (
+                <a class="button button-secondary" href={`/corrections?record=${encodeURIComponent(`Missing Record: ${q}`)}`}>
+                  Request / Submit "{q}"
+                </a>
+              )}
               <a class="button button-secondary" href="/">Browse all directories</a>
             </div>
           </div>
