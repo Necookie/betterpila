@@ -63,7 +63,7 @@ const nav = [
             <span class="topline-sep" aria-hidden="true">·</span>
             <span>National Historical Landmark Town</span>
             <span class="topline-sep" aria-hidden="true">·</span>
-            <span class="pst-clock" title="Philippine Standard Time">PST UTC+8</span>
+            <span class="pst-clock" id="pst-live-clock" title="Philippine Standard Time (UTC+8)">PST UTC+8</span>
           </div>
           <div class="topline-right">
             <span>Pila, Laguna · Public information, sourced independently</span>
@@ -169,6 +169,27 @@ const nav = [
       </div>
     </footer>
     <script is:inline>
+      // Live Philippine Standard Time (Asia/Manila) Clock
+      function updatePstClock() {
+        const el = document.getElementById("pst-live-clock");
+        if (!el) return;
+        try {
+          const now = new Date();
+          const formatter = new Intl.DateTimeFormat("en-US", {
+            timeZone: "Asia/Manila",
+            hour: "numeric",
+            minute: "2-digit",
+            hour12: true,
+          });
+          el.textContent = `PST ${formatter.format(now)} UTC+8`;
+        } catch {
+          // Graceful fallback
+        }
+      }
+      updatePstClock();
+      setInterval(updatePstClock, 30000);
+
+      // Keyboard shortcut '/' focuses search input
       document.addEventListener("keydown", (e) => {
         if (e.key === "/" && !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName || "")) {
           e.preventDefault();
@@ -181,6 +202,21 @@ const nav = [
           }
         }
       });
+
+      // Close mobile navigation on Escape or clicking outside
+      const mobileNav = document.querySelector(".mobile-nav");
+      if (mobileNav) {
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && mobileNav.hasAttribute("open")) {
+            mobileNav.removeAttribute("open");
+          }
+        });
+        document.addEventListener("click", (e) => {
+          if (mobileNav.hasAttribute("open") && !mobileNav.contains(e.target)) {
+            mobileNav.removeAttribute("open");
+          }
+        });
+      }
     </script>
   </body>
 </html>
