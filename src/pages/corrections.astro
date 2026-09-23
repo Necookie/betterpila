@@ -29,12 +29,135 @@ const record = Astro.url.searchParams.get("record") ?? "";
         <strong>Notice:</strong> Better Pila does not handle emergency dispatches, official government complaints, or administrative municipal service requests. For emergencies, please call local municipal hotlines directly.
       </div>
 
-      {record && (
-        <div style="background: var(--paper-subtle); border: 1px solid var(--line-strong); border-left: 4px solid var(--gold); border-radius: var(--radius-sm); padding: 1rem 1.25rem; margin-bottom: 2rem;">
-          <span style="font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 800; color: var(--gold-dark); font-family: var(--font-mono);">Target Accession Docket</span>
-          <p style="margin: 0.35rem 0 0; font-family: var(--font-mono); font-size: 0.92rem; color: var(--navy-deep); font-weight: 700;">{record}</p>
+      <!-- Interactive Correction Desk -->
+      <section class="correction-desk" aria-labelledby="intake-heading" style="background: var(--paper-subtle); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 1.8rem; margin-bottom: 2.5rem; box-shadow: 0 2px 10px rgb(0 0 0 / 0.04);">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.25rem;">
+          <div>
+            <span class="docket-chip" style="color: var(--gold-dark); background: var(--gold-soft); border-color: var(--gold-border);">Civic Intake Desk</span>
+            <h2 id="intake-heading" style="margin: 0.5rem 0 0.25rem; font-family: var(--font-serif); font-size: 1.4rem; color: var(--navy-deep);">
+              Submit an Editorial Correction
+            </h2>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--ink-soft);">
+              Fill in the verified details below. You can send directly via email, file on GitHub, or copy an official memorandum.
+            </p>
+          </div>
+          {record && (
+            <div style="background: var(--paper); border: 1px solid var(--gold-border); border-radius: var(--radius-sm); padding: 0.5rem 0.85rem; font-family: var(--font-mono); font-size: 0.8rem; color: var(--navy-deep); font-weight: 700;">
+              Linked Docket: {record}
+            </div>
+          )}
         </div>
-      )}
+
+        <form id="correction-form" style="display: grid; gap: 1.2rem;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+            <div class="field">
+              <label for="corr-docket">Target Record Docket or URL <span style="color: var(--error);">*</span></label>
+              <input
+                id="corr-docket"
+                name="docket"
+                type="text"
+                required
+                value={record}
+                placeholder="e.g. /officials/sample-official or BP-OFF-01"
+              />
+            </div>
+            <div class="field">
+              <label for="corr-category">Category of Correction <span style="color: var(--error);">*</span></label>
+              <select id="corr-category" name="category" required>
+                <option value="Factual Inaccuracy">Factual Inaccuracy (Dates, Titles, Names)</option>
+                <option value="Outdated Information">Outdated Information (New Official, Amended Law)</option>
+                <option value="Budget / Numerical Correction">Budget or Numerical Expenditure Discrepancy</option>
+                <option value="Missing or Broken Source Citation">Missing or Broken Primary Citation</option>
+                <option value="Privacy / Sensitive Data Redaction">Privacy / Sensitive Data Redaction Request</option>
+                <option value="General Clarification">General Clarification or Spelling</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="corr-contested">Contested Statement or Data Point <span style="color: var(--error);">*</span></label>
+            <input
+              id="corr-contested"
+              name="contested"
+              type="text"
+              required
+              placeholder="e.g. Listed 2024 AIP budget is PHP 5,200,000 instead of PHP 4,800,000"
+            />
+          </div>
+
+          <div class="field">
+            <label for="corr-replacement">Proposed Correction / Verified Information <span style="color: var(--error);">*</span></label>
+            <textarea
+              id="corr-replacement"
+              name="replacement"
+              rows="3"
+              required
+              placeholder="Provide the accurate factual claim as verified by official public municipal records…"
+            ></textarea>
+          </div>
+
+          <div class="field">
+            <label for="corr-evidence">Primary Source Evidence Citation or URL <span style="color: var(--error);">*</span></label>
+            <input
+              id="corr-evidence"
+              name="evidence"
+              type="text"
+              required
+              placeholder="e.g. Sangguniang Bayan Resolution No. 42-2024, COA Audit Report p. 34, or document URL"
+            />
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+            <div class="field">
+              <label for="corr-submitter">Your Name / Civic Affiliation <span style="color: var(--ink-muted); font-weight: normal;">(Optional)</span></label>
+              <input
+                id="corr-submitter"
+                name="submitter"
+                type="text"
+                placeholder="e.g. Juan dela Cruz (Pila Resident)"
+              />
+            </div>
+            <div class="field">
+              <label for="corr-contact">Contact Email for Verification</label>
+              <input
+                id="corr-contact"
+                name="contact"
+                type="email"
+                placeholder="e.g. citizen@example.com (Kept confidential)"
+              />
+            </div>
+          </div>
+
+          <div style="border-top: 1px solid var(--line); padding-top: 1.25rem; display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center;">
+            <button type="button" id="email-btn" class="button button-primary">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+              <span>Email Editorial Desk</span>
+            </button>
+            <button type="button" id="github-btn" class="button button-secondary">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                <path d="M9 18c-4.51 2-5-2-7-2"></path>
+              </svg>
+              <span>File on GitHub Issues</span>
+            </button>
+            <button type="button" id="copy-memo-btn" class="button button-secondary">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+              </svg>
+              <span id="copy-memo-label">Copy Memorandum</span>
+            </button>
+            <button type="reset" id="reset-btn" class="button button-secondary" style="margin-left: auto;">
+              <span>Clear</span>
+            </button>
+          </div>
+
+          <div id="status-banner" style="display: none; padding: 0.75rem 1rem; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 600;" role="status"></div>
+        </form>
+      </section>
 
       <h2 style="color: var(--navy-deep); margin-bottom: 0.85rem;">What to include in a correction report</h2>
       <p>To help our volunteer editorial desk verify and correct records efficiently, please include:</p>
@@ -55,7 +178,7 @@ const record = Astro.url.searchParams.get("record") ?? "";
       <div style="background: var(--paper-subtle); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.4rem; margin-top: 2rem;">
         <h3 style="margin: 0 0 0.4rem; font-family: var(--font-serif); font-size: 1.1rem; color: var(--navy-deep);">Public Submission Channels</h3>
         <p style="margin: 0; font-size: 0.92rem; color: var(--ink-soft); line-height: 1.6;">
-          Direct evidence and correction memoranda may be submitted via GitHub issues on our repository or sent to our editorial desk.
+          Direct evidence and correction memoranda may be submitted via GitHub issues on our repository or sent directly to our volunteer research desk at <a href="mailto:corrections@betterpila.org" style="color: var(--navy); font-weight: 700; text-decoration: underline;">corrections@betterpila.org</a>.
         </p>
       </div>
 
@@ -65,4 +188,95 @@ const record = Astro.url.searchParams.get("record") ?? "";
       </div>
     </article>
   </section>
+
+  <script is:inline>
+    function getFormData() {
+      return {
+        docket: document.getElementById("corr-docket")?.value.trim() || "",
+        category: document.getElementById("corr-category")?.value || "Factual Inaccuracy",
+        contested: document.getElementById("corr-contested")?.value.trim() || "",
+        replacement: document.getElementById("corr-replacement")?.value.trim() || "",
+        evidence: document.getElementById("corr-evidence")?.value.trim() || "",
+        submitter: document.getElementById("corr-submitter")?.value.trim() || "Anonymous Citizen",
+        contact: document.getElementById("corr-contact")?.value.trim() || "None provided",
+      };
+    }
+
+    function buildMemorandum(data) {
+      return [
+        "# BETTER PILA CIVIC CORRECTION MEMORANDUM",
+        `Date: ${new Date().toISOString().split("T")[0]}`,
+        `Target Docket / URL: ${data.docket || "N/A"}`,
+        `Category: ${data.category}`,
+        `Submitter: ${data.submitter}`,
+        `Contact: ${data.contact}`,
+        "",
+        "## Contested Information",
+        data.contested || "(Not specified)",
+        "",
+        "## Proposed Correction / Verified Information",
+        data.replacement || "(Not specified)",
+        "",
+        "## Primary Source Evidence",
+        data.evidence || "(Not specified)",
+        "",
+        "---",
+        "Filed for editorial verification under the Better Pila Civic Standard.",
+      ].join("\n");
+    }
+
+    function showStatus(text, isError = false) {
+      const banner = document.getElementById("status-banner");
+      if (!banner) return;
+      banner.style.display = "block";
+      banner.textContent = text;
+      banner.style.background = isError ? "#fef2f2" : "#f0fdf4";
+      banner.style.color = isError ? "#991b1b" : "#166534";
+      banner.style.border = `1px solid ${isError ? "#fca5a5" : "#bbf7d0"}`;
+      setTimeout(() => {
+        banner.style.display = "none";
+      }, 5000);
+    }
+
+    // Email Desk Button
+    document.getElementById("email-btn")?.addEventListener("click", () => {
+      const data = getFormData();
+      if (!data.contested && !data.replacement) {
+        showStatus("Please enter the contested claim or proposed correction before drafting email.", true);
+        return;
+      }
+      const subject = encodeURIComponent(`[Better Pila Correction] ${data.category}: ${data.docket || "Public Record"}`);
+      const body = encodeURIComponent(buildMemorandum(data));
+      window.location.href = `mailto:corrections@betterpila.org?subject=${subject}&body=${body}`;
+      showStatus("Drafted email opened in your default email client.");
+    });
+
+    // GitHub Issues Button
+    document.getElementById("github-btn")?.addEventListener("click", () => {
+      const data = getFormData();
+      const title = encodeURIComponent(`[Correction] ${data.category} in ${data.docket || "Public Record"}`);
+      const body = encodeURIComponent(buildMemorandum(data));
+      const url = `https://github.com/Necookie/betterpila/issues/new?title=${title}&body=${body}&labels=correction,editorial-verification`;
+      window.open(url, "_blank", "noopener,noreferrer");
+      showStatus("Opened GitHub issue composer in a new tab.");
+    });
+
+    // Copy Memorandum Button
+    document.getElementById("copy-memo-btn")?.addEventListener("click", async () => {
+      const data = getFormData();
+      const text = buildMemorandum(data);
+      const label = document.getElementById("copy-memo-label");
+      try {
+        await navigator.clipboard.writeText(text);
+        if (label) {
+          const original = label.textContent;
+          label.textContent = "Memorandum Copied!";
+          setTimeout(() => { label.textContent = original; }, 3000);
+        }
+        showStatus("Correction memorandum copied to your clipboard!");
+      } catch (e) {
+        showStatus("Could not copy to clipboard. Please copy manually.", true);
+      }
+    });
+  </script>
 </BaseLayout>
